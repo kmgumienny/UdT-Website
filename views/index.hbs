@@ -1,0 +1,1804 @@
+<body class="site home ">
+<script>
+    jQuery(document).ready(function ($) {
+
+        /**
+         * @general vars
+         */
+
+        var headerHeight = $("header").outerHeight();
+        var mainHeight = $("main").outerHeight();
+        var footerHeight = $("footer").outerHeight();
+        var navMainWidth = $("header div.right").outerWidth();
+        var navMainHeight = $("header div.right").outerHeight();
+        var logoWidth = $(".logo").outerWidth();
+        var windowWidth = $(window).outerWidth();
+
+        console.log("nav width: " + navMainWidth);
+        console.log("logo width: " + logoWidth);
+        console.log("window width: " + windowWidth);
+
+        /**************************************************************************************************/
+
+        /**
+         * @element header
+         */
+
+                // Hide and show header on scroll
+                // –––––
+                // Variables declaration
+        var didScroll;
+        var lastScrollTop = 0;
+        var delta = 15;
+        var offset = headerHeight;
+
+        // On scroll, let the interval function know the user has scrolled
+        $(window).scroll(function (event) {
+            didScroll = true;
+        });
+
+        // run hasScrolled() and reset didScroll status
+        setInterval(function () {
+            if (didScroll) {
+                hasScrolled();
+                didScroll = false;
+            }
+        }, 250);
+
+
+        function hasScrolled() {
+            var st = $(this).scrollTop();
+
+            // Users have to scroll up/down more than delta before something happens
+            if (Math.abs(lastScrollTop - st) <= delta)
+                return;
+
+            // If they scrolled down and they have passed the offset then add do something
+            if (st > lastScrollTop && st > offset) {
+                // Scroll Down
+                $('header').animate({'top': -headerHeight}, 600);
+                $('.fixed').animate({'top': "0"}, 400);
+                $('.dropdown-menu').fadeOut();
+            } else {
+                // Scroll Up
+                $('header').animate({'top': '0'});
+                $('.fixed').stop(true, true).delay(1000).animate({'top': headerHeight});
+            }
+
+            lastScrollTop = st;
+        }
+
+        if ($(window).width() > 980) {
+            $('.facebook_events_wrapper').addClass('fixed');
+            $('.fixed').css("top", headerHeight);
+        }
+
+        /**************************************************************************************************/
+
+        /**
+         * @element navigation
+         */
+
+                // Mobile switch
+
+                // @windowSizeW -> $(window).outerWidth();
+                // @headerContents -> $('.logo').outerWidth() + $('.right').outerWidth();
+        var windowSizeW = $(window).outerWidth();
+        var logoWidth = $('.logo').width();
+        var langWidth = $('.mod-languages').width();
+        var navWidth = $('.right nav.moduletable').outerWidth(true);
+        var headerContents = navWidth;
+        var spaceLeftInHeader = windowSizeW - headerContents;
+
+        console.log('window: ' + windowSizeW + 'px');
+        console.log('headerContents: ' + headerContents + 'px');
+
+        if (spaceLeftInHeader < 0) {
+            console.log('mobile: ' + spaceLeftInHeader + 'px zu wenig');
+        } else {
+            console.log('desktop: ' + spaceLeftInHeader + 'px übrig');
+        }
+
+        // Do the mobile switch
+        var mainmenu = $('header nav');
+        // if(windowWidth - logoWidth - navMainWidth < 0) {
+        if ($(window).width() < 1090) {
+            mainmenu.addClass('mobile');
+        } else {
+            mainmenu.removeClass('mobile');
+        }
+        // menu item logout: hide Text only show icon
+        $('a.logout').html("");
+
+        // Nav mobile: make it work / toggle
+        $('header nav.mobile').before('<div class="toggle_mobile"><i class="fa fa-bars "></i></div>');
+        $('.toggle_mobile').on('click', function () {
+            $(this).next().slideToggle();
+            $('body, html').toggleClass('noscroll');
+        });
+        $('.mobile').css({"top": headerHeight, "height": $(window).height() - headerHeight});
+
+        // Close mobile menu on click
+        $('.mobile a').on('click', function () {
+            $('.mobile').hide();
+            $('body, html').toggleClass('noscroll');
+        });
+
+        // mainmenu-user User nav (login and out and so on)
+        $('.moduletablemainmenu-user').css("top", headerHeight + 20);
+
+        // Fix <main> top position because <header> is fixed
+        $('main').css({"margin-top": headerHeight, "min-height": $(window).height() - headerHeight - footerHeight});
+
+        // font Font-awesome stuff
+        $('header nav span, header nav a, .moduletablemainmenu-user a, footer nav a, footer nav span').each(function () {
+            if ($(this).hasClass('fa')) {
+                $(this).prepend('<i class="' + $(this).attr("class") + '"></i>');
+                $(this).removeClass("fa");
+            }
+        });
+
+        // Make the menu actually work
+        var timer;
+        var delay = 200;
+        $(function () {
+            $("header .parent").hover(function () {
+                // on mouse in, start a timeout
+                var $this = $(this);
+                timer = setTimeout(function () {
+                    $("header .parent").removeClass("hover");
+                    $this.addClass("hover");
+                    $('ul:first', $this).slideDown();
+                }, delay);
+            }, function () {
+                // on mouse out, cancel the timer
+                clearTimeout(timer);
+                $(this).removeClass("hover");
+                $('ul:first', this).css('display', 'none');
+            });
+        });
+
+        /**************************************************************************************************/
+
+        /**
+         * @general settings
+         */
+
+        // Fix: f****** language bug with background-images in modules
+        $('.all_recipes .item, main .aboutberlin .main #news .news .wrapper .item').each(function () {
+            $(this).css("background-image", $(this).css("background-image").replace("/en/", "/"));
+        });
+
+        // Check for Windows and toggle scrollbar
+        if (navigator.appVersion.indexOf("Win") != -1) {
+            // windowssucks.addClass("windowssucks"); // Windows
+            // windowssucks2.addClass("windowssucks"); // Windows
+        } else {
+            $(".facebook_events, .satellit_main_page .team, .satellit_main_page .news, .journey, .about_press, .champions .item .text, .jobbuddystory-item .content .right, .tickets_wrapper .right, .aboutberlin .slick-slider-news").addClass("macruleslinuxokay"); // this will style body for other OS (Linux/Mac)
+        }
+
+        // goodbye orphans and widows
+        $('blockquote, .text p, .news-item .main .content p, .cookbook h1, .champions .content > h1, .donation_header > p, .widow, .timeline .item .description').widowFix();
+
+        // Adjust scroll speed of element with data-scroll-speed="X"
+        $.fn.moveIt = function () {
+            var $window = $(window);
+            var instances = [];
+
+            $(this).each(function () {
+                instances.push(new moveItItem($(this)));
+            });
+
+            window.onscroll = function () {
+                var scrollTop = $window.scrollTop();
+                instances.forEach(function (inst) {
+                    inst.update(scrollTop);
+                });
+            }
+        }
+
+        var moveItItem = function (el) {
+            this.el = $(el);
+            this.speed = parseInt(this.el.attr('data-scroll-speed'));
+        };
+
+        moveItItem.prototype.update = function (scrollTop) {
+            this.el.css('transform', 'translateY(' + -(scrollTop / this.speed) + 'px)');
+        };
+
+        // Initialization
+        $(function () {
+            $('[data-scroll-speed]').moveIt();
+        });
+
+        // Smooth anchor scroll
+        $(function () {
+            $('a[href*="#"]:not([href="#"])').click(function () {
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    if (target.length) {
+                        $('html, body').animate({
+                            scrollTop: target.offset().top - headerHeight
+                        }, 1000);
+                        return false;
+                    }
+                }
+            });
+        });
+
+        // Equal height for slick items
+        var slickTrackHeight = $('.slick-equalheight .slick-track').height();
+        console.log(slickTrackHeight);
+        $('.slick-equalheight .item > div').css("height", slickTrackHeight);
+
+        // clean nodes
+        function clean(node) {
+            for (var n = 0; n < node.childNodes.length; n++) {
+                var child = node.childNodes[n];
+                if
+                (
+                        child.nodeType === 8
+                        ||
+                        (child.nodeType === 3 && !/\S/.test(child.nodeValue))
+                ) {
+                    node.removeChild(child);
+                    n--;
+                }
+                else if (child.nodeType === 1) {
+                    clean(child);
+                }
+            }
+        }
+
+        clean(document.body);
+
+        // Standort auswahl Seite
+        $('.page_locations').css({"min-height": $(window).height() - headerHeight});
+        $('.page_locations button.button').on('click', function () {
+            $(this).next('.text').slideToggle();
+        });
+
+
+        // mod-languages module language switch changer sprachauswahl sprache
+        // Remove language text and keep flag
+        // $('a.dropdown-toggle').contents()
+        //     .filter(function () {
+        //         return this.nodeType == 3; //Node.TEXT_NODE
+        //     }).remove();
+        // // Padding produces empty space so we use height instead and padding 0 x;
+        // $('header .mod-languages a.dropdown-toggle').css("height", headerHeight);
+        // $('.dropdown-toggle').on('click', function (e) {
+        //     $('.dropdown-menu').slideToggle();
+        //     e.preventDefault();
+        // });
+        /**************************************************************************************************/
+
+        /**
+         * @page home
+         */
+
+        $('.slick-slider_home .item').css("height", $(window).height() - headerHeight);
+
+        /**************************************************************************************************/
+
+        /**
+         * @page home ar arabic arabisch
+         */
+
+        $('.home_ar').css("min-height", $(window).height() - headerHeight);
+
+        /**************************************************************************************************/
+
+        /**
+         * @page press
+         */
+
+        $('.press .wrapper').css("min-height", $(window).height() - headerHeight);
+
+        /**************************************************************************************************/
+
+        /**
+         * @page recipes rezepte
+         */
+
+        $('.all_recipes .item a').css("height", $('.all_recipes .item').outerHeight(true));
+
+        /**************************************************************************************************/
+
+        /**
+         * @page champions
+         */
+
+        // As a matter of fact ipad somehow thinks its bigger than it is. 760 -> 780px (768native)
+        if ($(window).outerWidth() > 780) {
+            $('.champions, .champions .item, .champions .item .content, .champions .item .text').css({"height": $(window).height() - headerHeight});
+        } else {
+            $('.champions .item .text').css({"top": -headerHeight, "margin-bottom": -headerHeight});
+        }
+
+        // Trying to hash slick urls
+        // .champions .slick-slider .slick-slider-champions
+        // <div class="item" data-url="{$JOOMLA_TITLE_ALIAS}"
+        // URL: projects/champions/?slide=[data-url]
+        // Goal -> Set slide with data-url == $_GET["slide"] as current slide
+
+        // Natürlich nur wenn es den slider hier auch gibt
+        $(function () {
+            if ($('.slick-slider-champions').length) {
+                // 1.
+                // Get parameter from url
+                $.urlParam = function (name) {
+                    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+                    if (results == null) {
+                        return null;
+                    } else {
+                        return decodeURI(results[1]) || 0;
+                    }
+                }
+                // This is the requested slide
+                var requestedSlide = $.urlParam('slide');
+
+                // 2.
+                // Check if parameter exists among the actual slides
+
+                $(function () {
+                    i = 0;
+                    $('.slick-slider-champions > .item').each(function () {
+                        $(this).addClass("slidenummer" + i);
+                        if ($(this).data("url") == requestedSlide) {
+                            $('.slick-slider-champions').slick({
+                                initialSlide: i,
+                                asNavFor: '.slick-slider-champions-nav',
+                                pauseOnHover: false,
+                                pauseOnFocus: false,
+                                autoplay: false,
+                                autoplaySpeed: 4500,
+                                dots: false,
+                                cssEase: 'ease-in-out',
+                                arrows: true,
+                                speed: 800,
+                                touchThreshold: 5,
+                                slidesToShow: 1,
+                                focusOnSelect: true,
+                                infinite: true,
+                                fade: true,
+                                swipeToSlide: false
+                            });
+                            $('.slick-slider-champions-nav').slick({
+                                initialSlide: i,
+                                slidesToShow: 3,
+                                slidesToScroll: 1,
+                                arrows: false,
+                                fade: false,
+                                focusOnSelect: true,
+                                swipeToSlide: true,
+                                variableWidth: true,
+                                centerMode: true,
+                                dots: false,
+                                infinite: false,
+                                asNavFor: '.slick-slider-champions'
+                            });
+                        }
+                        i++;
+                    });
+                });
+            }
+        });
+
+
+        /**************************************************************************************************/
+
+        /**
+         * @page about
+         */
+
+        if ($(window).width() < 480) {
+            $('.kitchenhub .gallery').css({"height": $(this).width()});
+            $('.kitchenhub .gallery .slick-list').css({"height": "100%"});
+        }
+
+        /**************************************************************************************************/
+
+        /**
+         * @page jobbuddys job buddies stories story _> main
+         */
+
+        // jobbuddy Story items
+        if ($(window).width() > 980) {
+            $('.jobbuddystory-item .content .right').css({"height": $(window).height() - headerHeight});
+            $('.jobbuddystory-item .content .left').css({"height": $('.jobbuddystory-item .content .right').outerHeight()});
+        }
+
+        /**************************************************************************************************/
+
+        /**
+         * @page job buddy program
+         */
+
+                // toggle email button bottom left
+        var jobbMail = $('.jobbuddys .email, .building_bridges .email');
+        jobbMail.addClass("hidemail");
+        $(window).scroll(function () {
+            if ($(this).scrollTop() < 30) {
+                jobbMail.addClass("hidemail");
+            }
+            else {
+                jobbMail.removeClass("hidemail");
+            }
+            if ($(this).scrollTop() > $(document).outerHeight() - footerHeight - $(window).height() * 1.5) {
+                jobbMail.addClass("hidemail");
+            }
+        });
+
+        /**************************************************************************************************/
+
+        /**
+         * @page classes
+         */
+
+        $('.tickets .item').on('click', function () {
+            // alert($(this).data("id"));
+            // $("#" + $(this).data("id")).slideDown();
+        });
+
+        /**************************************************************************************************/
+
+        /**
+         * @page aboutberlin
+         */
+
+        $('.scrollme').on('click', function () {
+            $("body").animate({scrollTop: window.pageYOffset + $(window).height()}, 800);
+        });
+
+        // about text readmore
+        // $('.aboutberlin .fulltext').hide();
+        // $('.aboutberlin .text .intro').on('click',function() {
+        //   $('.aboutberlin .text .intro, .aboutberlin .text .substr').hide();
+        //   $('.aboutberlin .fulltext').show();
+        //   $('.aboutberlin .videos_wrapper').fadeIn();
+        // });
+
+        // Pres review - Limit items
+        var limiPressViewItems = 20;
+        $('.aboutberlin .pressreview .item').hide();
+        $('.aboutberlin .pressreview .item:lt(' + limiPressViewItems + ')').show();
+        $('.aboutberlin .pressreview .item:nth-child(' + limiPressViewItems + ')').after('<div class="item expand"><a href="javascript: void(0);"><span class="title">Show more</span><span class="date"></span><span class="publisher"></span></a></div>');
+
+        $('.aboutberlin .pressreview .item.expand').on('click', function () {
+            $('.aboutberlin .pressreview .item').show();
+            $(this).hide();
+        });
+
+        // Timeline for big screens
+        if ($(window).width() > 1024) {
+            var timeline = $('.timeline');
+            var scrollSpeed = timeline.attr('data-scroll-speed');
+            console.log("scrollSpeed: " + scrollSpeed);
+            $('.aboutberlin').css("min-height", timeline.outerHeight(true) * scrollSpeed + $(window).height() * 0.45 + footerHeight * scrollSpeed / 2);
+            timeline.delay(800).fadeIn(800);
+
+            $('.aboutberlin .main').css({"width": $(window).width() - timeline.outerWidth(true)});
+        }
+
+        // Team
+        $('.aboutberlin .team .item').each(function () {
+            // add trigger
+            $('.contactinfo', this).before('<div class="trigger_contactinfo fa fa-share">');
+        });
+        $('.aboutberlin .team .item').on('click', function () {
+            $('.trigger_contactinfo', this).toggleClass("active").next('.contactinfo').toggleClass("active");
+        });
+
+        // Newsfeed add images
+        // We delay the loading of the images to speed up the page load
+        $(window).load(function () {
+            setTimeout(function () {
+                $('.aboutberlin .slick-slider-news .item').each(function () {
+                    $(this).css("background-image", "url('" + $(this).data("background") + "')");
+                });
+                // Fix this aweful language bug when joomla thinks that /en/ is actually a folder
+                $('.aboutberlin .slick-slider-news .item').each(function () {
+                    $(this).css("background-image", $(this).css("background-image").replace("/en/", "/"));
+                });
+            }, 2000)
+        });
+        /**************************************************************************************************/
+
+        /**
+         * @page location [/berlin, /hamburg]
+         */
+
+        // Socials
+        if ($(window).width() > 480) {
+            $('.socials').css({"top": $(window).height() / 2 - $('.socials').outerHeight(true) / 2})
+        }
+
+        // Facebook Events
+        $(function () {
+
+            // Die einzelnen Events werden gewrapped und in vergangen und aktuell eingeteilt
+            $('.facebook_events .item').not('.past').wrapAll('<div class="items">');
+            $('.facebook_events .past').wrapAll('<div class="items past">');
+
+            // Delay .facebook_events_wrapper because its too big and ugly to be loaded at the beginning... oO
+            $('.facebook_events_wrapper').delay(1000).fadeIn();
+
+            // Close events Button: hide at the beginning
+            $('.closeFe').hide();
+            var closeFe = false;
+
+        });
+
+        // Wenn die Seite vollständig geladen ist, schauen wir mal wie viel Platz die Events einnehmen
+        $(window).load(function () {
+
+            // Und weil das nie klappt warten wir einfach noch 2 Sekunden
+            setTimeout(function () {
+                var totalWidth = 0;
+                $('.facebook_events .items').each(function () {
+                    totalWidth += parseInt($(this).outerWidth());
+                });
+                // alert(totalWidth);
+
+                // Nur wenn die Events über den Bildschirmrand hinaus gehen, brauchen wir hier weiter machen
+                if (totalWidth > $(window).width()) {
+                    var worthit = true;
+                } else {
+                    var worthit = false;
+                }
+                // alert(worthit);
+
+                // wenn es genügend events gibt
+                if (worthit) {
+
+                    // Next Button
+                    $('.facebook_events_wrapper').append('<div class="next fa fa-arrow-right"></div>');
+
+                    // Hinweis, dass es auch seit einiger Zeit möglich ist horizontal zu scrollen
+                    var showHint = false;
+
+                    // Scroll x on mouseover & click Next Button
+                    $('.facebook_events_wrapper .next').on('mouseover click', function () {
+                        x = (($('.facebook_events').width() / 3)) + $('.facebook_events').scrollLeft();
+                        $('.facebook_events').animate({
+                            scrollLeft: x,
+                        });
+
+                        if (!showHint) {
+                            var hintText = "Use your Mouse to scroll horizontally";
+                            $('.facebook_events_wrapper').append('<div class="hint fa fa-arrows-h"><span>' + hintText + '</span></div>');
+                        }
+
+                        // Hint toggle
+                        $('.hint').slideDown();
+                        setTimeout(function () {
+                            $('.hint').fadeOut();
+                        }, 5000);
+                        showHint = true;
+                    });
+
+                    // Next Button ausblenden wenn das Ende der Seite erreicht wird
+                    $('.facebook_events').scroll(function () {
+                        var endoftheworld = totalWidth - $(this).scrollLeft() - $(window).width() - 300;
+                        // console.log("total: " + totalWidth + " worthit: " + worthit);
+
+                        if (endoftheworld <= 0) {
+                            $('.facebook_events_wrapper .next').fadeOut()
+                        } else {
+                            $('.facebook_events_wrapper .next').fadeIn()
+                        }
+                    });
+                }
+
+                // wenn es NICHT genügend events gibt
+                else {
+
+                }
+
+            }, 2000);
+        });
+
+        $('.facebook_events .item').on('click', function () {
+            $('.facebook_events_wrapper').addClass('active');
+            $('.facebook_events .item').addClass('active');
+            $(this).addClass('activehighlight')
+            $('.facebook_events:not(.area-is-active)').addClass('area-is-active');
+
+            // Close Button anzeigen
+            closeFe = true;
+            if (closeFe) {
+                $('.closeFe').delay(3000).slideDown(200);
+            }
+        });
+        // Events schließen und Close Button ausblenden
+        $('.closeFe').on('click', function () {
+            $('.facebook_events .item').removeClass('active');
+            $('.closeFe').hide();
+            $('.facebook_events_wrapper').removeClass('active');
+            closeFe = false;
+        });
+
+        // Facebook Events - END
+
+
+        // button link extern shop classes satellites .externalshop
+        var externalshop = $('.externalshop');
+        $('.satellit_main_page .socials').prepend(externalshop);
+        if ($(window).width() < 481) {
+            externalshop.css("bottom", $('.satellit_main_page .socials').css("height"));
+        }
+
+        // Fix .hello height
+        $('.satellit_main_page .hello').css({'height': $(window).height() - headerHeight});
+
+        // Add scroll down button on .hello
+        $('.satellit_main_page .hello').append('<a href="#about" class="scrolldown fa fa-chevron-down"></a>');
+
+        // Fix default header background image text
+        // Aus irgendeinem Grund funktionieren F2C und Articles anywhere hier nicht gut zusammen, da bei der Ausgabe über das Plugin von Articles Anywhere an [imag_fulltext] aus #__content automatisch [introtext] angehängt wird. Warum auch immer...
+        $('.hello .image').html('');
+
+        // news height
+        $('.news').css({'height': $('.about_text .text').outerHeight()});
+
+        // Empty Satellit
+        if ($('.about_text .text').is(':empty') && !$('.news').length) {
+            // add text
+            $('.about_text .text').html("No further information provided. <br>We still #maketheworldabetterplate!").css("text-align", "center");
+        } else if ($('.about_text .text').is(':empty') && $('.news').length) {
+            // make the text container disappear and prepare for socials
+            $('.about_text').css({
+                "padding": "0",
+                "justify-content": "center",
+                "align-items": "center"
+            }).addClass("flex");
+            // adjust .news size
+            $('.news').css({"max-width": "none", "width": "100%"});
+            if ($('.facebook_events').length) {
+                $('.satellit_main_page .hello').css({'height': $(window).height() - headerHeight - $('.facebook_events').outerHeight(true) - $('.about .headline').outerHeight(true) - $('.about .inner').outerHeight(true)});
+            } else {
+                $('.satellit_main_page .hello').css({'height': $(window).height() - headerHeight - $('.about .headline').outerHeight(true) - $('.about .inner').outerHeight(true)});
+            }
+        }
+
+        // Close support crowdfunding iframe overlay
+        $('.overlay').prepend('<div class="close_parent fa fa-times"></div>');
+        $('.hello .support .trigger').on('click', function () {
+            $('.overlay').addClass("flex-i");
+        });
+
+// Newsletter trigger
+        $('.newsletter').prepend('<div class="close_parent fa fa-times"></div>');
+        $('.newsletter-trigger').on('click', function () {
+            $('.newsletter').addClass("flex-i");
+        });
+
+// close newsletter with button click
+        $('.close_parent').on('click', function () {
+            $(this).parent().fadeOut(function () {
+                $(this).removeClass("flex-i");
+            });
+        });
+
+
+        /**************************************************************************************************/
+
+        /**
+         * @page: 404 error
+         */
+
+        $('.errorpage').css("height", $(window).height() - headerHeight);
+
+        /**************************************************************************************************/
+
+
+    });
+
+</script>
+<header>
+    <div class="logo"><a href="/./">
+        <div class="main"><img class="full"
+                               src="https://ueberdentellerrand.org/media/com_form2content/documents/c1/a2/f36/dT-Logo+Wortmarke-GbR-farbig.svg"
+                               onerror="this.src='images/stories/com_form2content/p1/f2/ber_den_Tellerrand.png'"><img
+                class="icon" src="https://ueberdentellerrand.org/images/stories/com_form2content/p1/f2/udt_small.png">
+        </div>
+        <div class="community"><img class="full"
+                                    src="https://ueberdentellerrand.org/images/stories/com_form2content/p1/f2/ber_den_Tellerrand-2.png"><img
+                class="icon"
+                src="https://ueberdentellerrand.org/images/stories/com_form2content/p1/f2/udt_small_com.png"></div>
+        <div class="betterplate"><img class="full"
+                                      src="https://ueberdentellerrand.org/images/stories/com_form2content/p1/f2/betterplate-logo.png"><img
+                class="icon"
+                src="https://ueberdentellerrand.org/images/stories/com_form2content/p1/f2/udt_small_com.png"></div>
+    </a></div>
+    <div class="right headerrightside">
+        <nav class="moduletable mobile" style="top: 70.7969px; height: 715.203px;">
+            <ul class="nav menu">
+                <li class="item-163 deeper parent"><a href="https://ueberdentellerrand.org/about"
+                                                      class="fa-newspaper-o"><i
+                        class="fa fa-newspaper-o"></i>Über uns</a>
+                    <ul class="nav-child unstyled small">
+                        <li class="item-187"><a href="https://ueberdentellerrand.org/about#kitchen-hub">Willkommen im
+                            Kitchen Hub</a></li>
+                        <li class="item-330"><a href="https://ueberdentellerrand.org/about#team">Team</a></li>
+                        <li class="item-435"><a href="https://ueberdentellerrand.org/about#news">Newsfeed</a></li>
+                        <li class="item-190"><a href="https://ueberdentellerrand.org/about#downloads">Infomaterial</a>
+                        </li>
+                        <li class="item-188"><a href="https://ueberdentellerrand.org/locations">Standorte /
+                            Satelliten</a></li>
+                        <li class="item-189"><a href="https://ueberdentellerrand.org/about#walloffame">Partner &amp;
+                            Unterstützer</a></li>
+                        <li class="item-191"><a
+                                href="https://ueberdentellerrand.org/about#pressreview">Pressespiegel</a></li>
+                        <li class="item-338"><a href="https://ueberdentellerrand.org/about/transparenz">Transparenz</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="item-165 divider deeper parent"><span class="separator fa-users"><i
+                        class="separator fa fa-users"></i>Projekte</span>
+                    <ul class="nav-child unstyled small">
+                        <li class="item-192"><a href="https://ueberdentellerrand.org/projects/champions">Champions
+                            (Community Events)</a></li>
+                        <li class="item-396"><a href="https://ueberdentellerrand.org/inselgarten">Inselgarten</a></li>
+                        <li class="item-193"><a href="https://ueberdentellerrand.org/locations">Satelliten</a></li>
+                        <li class="item-194"><a href="http://www.kitchenontherun.org" target="_blank"
+                                                rel="noopener noreferrer">Kitchen on the run</a></li>
+                        <li class="item-195"><a href="https://ueberdentellerrand.org/projects/building-bridges">Building
+                            bridges</a></li>
+                        <li class="item-196"><a href="https://ueberdentellerrand.org/projects/jobbuddys">Job Buddy
+                            Programm</a></li>
+                    </ul>
+                </li>
+                <li class="item-177 divider deeper parent"><span class="separator fa-calendar-check-o"><i
+                        class="separator fa fa-calendar-check-o"></i>Veranstaltungen</span>
+                    <ul class="nav-child unstyled small">
+                        <li class="item-178"><a href="https://www.facebook.com/pg/ueberdentellerrandkochen/events/">Community
+                            Veranstaltungen</a></li>
+                        <li class="item-179"><a href="https://ueberdentellerrandkochen.de/kochkurse" class="fa-cutlery"><i
+                                class="fa fa-cutlery"></i>Kochkurse</a></li>
+                        <li class="item-201"><a href="https://ueberdentellerrand.org/locations">Nicht in Berlin?</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="item-169"><a href="https://ueberdentellerrand.org/locations" class="fa-map-marker locations"><i
+                        class="fa fa-map-marker locations"></i>Standorte</a></li>
+                <li class="item-209 divider deeper parent"><span class="separator fa-shopping-basket"><i
+                        class="separator fa fa-shopping-basket"></i>Shop</span>
+                    <ul class="nav-child unstyled small">
+                        <li class="item-210"><a href="https://ueberdentellerrandkochen.de/shop/books">Kochbücher</a>
+                        </li>
+                        <li class="item-211"><a href="https://ueberdentellerrandkochen.de/shop/kochkurse">Kochkurse</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="item-398"><a href="/recipes" class="fa-cutlery"><i class="fa fa-cutlery"></i>Rezepte</a></li>
+                <li class="item-213 divider deeper parent"><span class="separator fa-diamond"><i
+                        class="separator fa fa-diamond"></i>Unterstützen</span>
+                    <ul class="nav-child unstyled small">
+                        <li class="item-214"><a href="https://ueberdentellerrand.org/support/join">Tritt dem Team
+                            bei</a></li>
+                        <li class="item-409"><a href="https://ueberdentellerrand.org/support/donate">Spenden</a></li>
+                        <li class="item-216"><a href="https://ueberdentellerrandkochen.de/shop/books">Hol dir unser
+                            Kochbuch</a></li>
+                        <li class="item-217"><a href="https://ueberdentellerrand.org/about#walloffame">Sponsoren &amp;
+                            Unterstützer</a></li>
+                    </ul>
+                </li>
+                <li class="item-405 divider deeper parent"><span class="separator fa-phone"><i
+                        class="separator fa fa-phone"></i>Kontakt</span>
+                    <ul class="nav-child unstyled small">
+                        <li class="item-219"><a href="https://ueberdentellerrand.org/contact/information">Kontaktiere
+                            uns jetzt!</a></li>
+                        <li class="item-403"><a href="https://ueberdentellerrand.org/contact/press">Pressebereich</a>
+                        </li>
+                        <li class="item-461"><a
+                                href="https://ueberdentellerrand.us14.list-manage.com/subscribe?u=35de3433816d51cd16c3990e7&amp;id=a63bafc4ad"
+                                target="_blank" rel="noopener noreferrer">Newsletter</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div class="mod-languages">
+            <div class="btn-group"><a id="flagBtn" onclick="changeLang();" class="btn dropdown-toggle"
+                                      style="height: 70.7969px;"><span class="caret"></span><img id="flag"
+                                                                                                 src="https://ueberdentellerrand.org/media/mod_languages/images/de.gif"></a>
+                <ul class="lang-inline dropdown-menu" dir="ltr">
+                    <li><a ><img src="https://ueberdentellerrand.org/media/mod_languages/images/en.gif"
+                                 alt=""> English (UK) </a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+<style>
+    .starmain{
+        text-align:center;
+        margin-top:2%;
+        margin-bottom: 5%;
+        display: flex;
+        justify-content: space-around;
+    }
+    .star{
+        width:30px;
+        height:30px;
+        margin: 2px;
+        -webkit-clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        background:white;
+    }
+    .star-border{
+        filter: drop-shadow(0px 0px 4px black);
+        display:inline-block;
+    }
+    .star-border:hover{
+        cursor:pointer;
+    }
+</style>
+
+<script>
+
+    $(document).ready(function() {
+        var set;
+        $(".star-border").click(function(){
+            $(this).find(".star").css("background","#ffa836");
+            $(this).prevAll().find(".star").css("background","#ffa836");
+            $(this).nextAll().find(".star").css("background","white");
+            set = $(this).prevAll().length + 1;
+            $(this).parent().attr("style", set)
+            // alert($(this).parent().attr('id'));
+        });
+
+    });
+
+</script>
+
+<script>
+
+    function changeLang(){
+
+        if ($('#flag').attr('src') == 'https://ueberdentellerrand.org/media/mod_languages/images/de.gif'){
+            $('#flag').attr('src', 'https://ueberdentellerrand.org/media/mod_languages/images/en.gif')
+            $('#Q1').text('Age');
+            $('#Q2').text('Nationality');
+            $('#Q3').text('How would you rate your overall experience?');
+            $('#Q4').text('How likely are you to recommend this class to others?');
+            $('#Q5').text('How did you hear about Über den Tellerrand?');
+            $('#Q5O1').text('Family/Friends');
+            $('#Q5O2').text('Voucher');
+            $('#Q5O3').text('Job');
+            $('#Q5O4').text('Internet');
+            $('#Q5O5').text('Other');
+            $('#Q5Other').attr("placeholder",'Where did you hear about us?');
+            $('#Q6').text('Have you participated in any other integration programs?');
+            $('#Q6Other').attr('placeholder', 'What was it called?');
+            $('#Q6Q1').text('Über den Tellerrand Community Programs');
+            $('#Q6Q2').text('Other');
+            $('#Q7').text('Über den Tellerrand has many programs outside of cooking, would you be interested in attending those?');
+            $('#Q7Q1').text('Yes');
+            $('#Q7Q2').text('No');
+            $('#Q7Q3').text('Possibly');
+            $('#Q8').text('How important are the following aspects of the class to you');
+            $('#Q8Q1').text('Learning to cook an ethnic meal');
+            $('#Q8Q2').text('Interested in multiculturalism');
+            $('#Q8Q3').text('Helping with refugee integration');
+            $('#Q8Q4').text('Enjoying an interactive event with friends/family');
+            $('#Q9').text('How well did the program meet your expectations?');
+            $('#Q10').text('If not, what would you change?');
+            $('#Q11').text('How did you like the presentation?');
+            $('#Q12').text('If you did not enjoy them, why not?');
+            $('#Q13').text('What, if anything, did you learn besides cooking?');
+            $('#Q14').text('How well do you believe this class helps in achieving an open and tolerant society?');
+            $('#Q15').text('How do you think that a cooking class can counteract any prejudice against refugees?');
+            $('#Q16').text('What are your suggestions on improving the program, if any?');
+        }
+        else{
+            $('#flag').attr('src', 'https://ueberdentellerrand.org/media/mod_languages/images/de.gif')
+            $('#Q1').text('Alter');
+            $('#Q2').text('Nationalität');
+            $('#Q3').text('Wie würdest Du dein Gesamterlebnis bewerten?');
+            $('#Q4').text('Wie wahrscheinlich ist es, dass Du unsere Kochkurse weiterempfiehlst?');
+            $('#Q5').text('Wie hast Du von Über den Tellerrand erfahren?');
+            $('#Q5O1').text('Famile/Freunde');
+            $('#Q5O2').text('Gutschein');
+            $('#Q5O3').text('Arbeit');
+            $('#Q5O4').text('Internet');
+            $('#Q5O5').text('Sonstiges');
+            $('#Q5Other').attr('placeholder','Wie hast Du erfahren?');
+            $('#Q6').text('Hast Du bereits an anderen Begegnungsprojekten teilgenommen?');
+            $('#Q6Other').attr('placeholder','Wie heisst es/sie?');
+            $('#Q6Q1').text('Weitere Über den Tellerrand Veranstaltungen:');
+            $('#Q6Q2').text('Andere');
+            $('#Q7').text('Bei Über den Tellerrand gibt es nicht nur Kochkurse - hättest Du Interesse, an anderen Veranstaltungen teilzunehmen?');
+            $('#Q7Q1').text('Ja');
+            $('#Q7Q2').text('Nein');
+            $('#Q7Q3').text('Vielleicht');
+            $('#Q8').text('Wie wichtig sind Dir die folgenden Komponenten des Kochkurses auf einer Skala von 1 (nicht wichtig)\n' +
+                    '            bis 7 (sehr wichtig)');
+            $('#Q8Q1').text('Ein neues Gericht kochen lernen');
+            $('#Q8Q2').text('Einblick in eine neue Kultur bekommen');
+            $('#Q8Q3').text('Beitrag zu Integration leisten');
+            $('#Q8Q4').text('Einen schönen Abend mit Freunden/Familie genießen');
+            $('#Q9').text('Hat der Kochkurs Deine Erwartungen erfüllt?');
+            $('#Q10').text('Wenn nein, warum nicht?');
+            $('#Q11').text('Wie haben Dir die Präsentationen gefallen?');
+            $('#Q12').text('Wenn sie Dir nicht gefallen haben, warum nicht?');
+            $('#Q13').text('Was hast Du neben dem Kochen neues gelernt?');
+            $('#Q14').text('Inwiefern glaubst Du, dass dieser Kochkurs zu einer offenen und toleranten Gesellschaft beitragen kann?');
+            $('#Q15').text('Wie glaubst Du, dass durch einen Kochkurs eventuellen Vorurteilen gegenüber Menschen mit Fluchterfahrung entgegengewirkt werden kann?');
+            $('#Q16').text('Wie können wir unsere Kochkurse weiter verbessern?');
+        }
+    }
+
+    function setInterest(obj){
+        var x = $(obj).attr('id')
+        var ans
+        if(x == 'radio-1')
+            ans = $('#Q7Q1').text()
+        if(x == 'radio-2')
+            ans = $('#Q7Q2').text()
+        if(x == 'radio-3')
+            ans = $('#Q7Q3').text()
+        $('#Q7Answer').attr('id', ans)
+
+    }
+
+    function changeFunc(i){
+        if (i == 5)
+            document.getElementById("Q5Other").style.display = "block"
+        else
+            document.getElementById("Q5Other").style.display = "none"
+    }
+
+    function changeSet(obj){
+        prt = $(obj).parent().attr('id');
+        if (prt =='set')
+            $(obj).parent().attr('id', '');
+        else
+            $(obj).parent().attr('id', 'set');
+    }
+
+    function changeFunc2() {
+        var x = document.getElementById("Q6Other");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+    $(function(){
+
+        //Create variables we will be referencing in our tweens.
+        var white = 'rgb(255,255,255)';
+        var seafoam = '#ff7f2e';
+        $buttonShapes = $('rect.btn-shape');
+        $buttonColorShape = $('rect.btn-shape.btn-color');
+        $buttonText = $('text.textNode');
+        $buttonCheck = $('text.checkNode');
+
+        //These are the button attributes which we will be tweening
+        //This will be used with GSAP and the function below to tween
+        var buttonProps = {
+            buttonWidth : $buttonShapes.attr('width'),
+            buttonX : $buttonShapes.attr('x'),
+            buttonY : $buttonShapes.attr('y'),
+            textScale : 1,
+            textX : $buttonText.attr('x'),
+            textY : $buttonText.attr('y')
+        };
+
+        //This is the update handler that lets us tween attributes
+        function onUpdateHandler(){
+            $buttonShapes.attr('width', buttonProps.buttonWidth);
+            $buttonShapes.attr('x', buttonProps.buttonX);
+            $buttonShapes.attr('y', buttonProps.buttonY);
+            $buttonText.attr('transform', "scale(" + buttonProps.textScale + ")");
+            $buttonText.attr('x', buttonProps.textX);
+            $buttonText.attr('y', buttonProps.textY);
+        }
+
+        //Finally, create the timelines
+        var hover_tl = new TimelineMax({
+            tweens:[
+                TweenMax.to( $buttonText, .15, { fill:white } ),
+                TweenMax.to( $buttonShapes, .25, { fill: seafoam })
+            ]
+        });
+        hover_tl.stop();
+
+        var tl = new TimelineMax({onComplete:bind_mouseenter});
+        //This is the initial transition, from [submit] to the circle
+        tl.append( new TimelineMax({
+            align:"start",
+            tweens:[
+                TweenMax.to( $buttonText, .15, { fillOpacity:0 } ),
+                TweenMax.to( buttonProps, .25, { buttonX: (190-64)/2, buttonWidth:64, onUpdate:onUpdateHandler } ),
+                TweenMax.to( $buttonShapes, .25, { fill: white })
+            ],
+            onComplete:function(){
+                $buttonColorShape.css({
+                    'strokeDasharray':202,
+                    'strokeDashoffset':202
+                });
+            }
+        }) );
+
+        //The loading dasharray offset animation…
+        tl.append(TweenMax.to($buttonColorShape, 1.2, {
+            strokeDashoffset:0,
+            ease:Quad.easeIn,
+            onComplete:function(){
+                //Reset these values to their defaults.
+                $buttonColorShape.css({
+                    'strokeDasharray':453,
+                    'strokeDashoffset':0
+                });
+            }
+        }));
+
+        //The Finish - transition to check
+        tl.append(new TimelineMax({
+            align:"start",
+            tweens:[
+                TweenMax.to($buttonShapes, .3, {fill:seafoam}),
+                TweenMax.to( $buttonCheck, .15, { fillOpacity:1 } ),
+                TweenMax.to( buttonProps, .25, { buttonX: 3, buttonWidth:190, onUpdate:onUpdateHandler } )
+            ]
+        }));
+
+        //The Reset - back to the beginning
+        //For demo only - probably you would want to remove this.
+        tl.append(TweenMax.to($buttonCheck, .1, {delay:10000,fillOpacity:0}));
+
+        tl.append(new TimelineMax({
+            align:"start",
+            tweens:[
+                TweenMax.to($buttonShapes, .3, {fill:white}),
+                TweenMax.to($buttonText, .3, {fill:seafoam, fillOpacity:1})
+            ],
+            onComplete:function() {
+                $('.colins-submit').removeClass('is-active');
+            }
+        }));
+        tl.stop();
+
+        //-- On Click, we launch into the cool transition
+        $('.colins-submit').on('click', function(e) {
+            //-- Add this class to indicate state
+            $(e.currentTarget).addClass('is-active');
+            tl.restart();
+            $('.colins-submit').off('mouseenter');
+            $('.colins-submit').off('mouseleave');
+
+
+            var lang;
+            if ($('#flag').attr('src') == 'https://ueberdentellerrand.org/media/mod_languages/images/de.gif')
+                lang = 'DE'
+            else
+                lang = 'EN'
+            var age = $('#Q1A').val();
+            var nationaltiy= $('#Q2A').val();
+            var xprc = $('#Q3A').attr('style');
+            var recc = $('#Q4A').attr('style');
+            if (recc == null)
+                recc = ''
+            var hear = $('#soflow').children("option:selected").val()
+            if (hear < 5)
+                hear = $('#soflow').children("option:selected").text()
+            else
+                hear = $('#Q5Other').val()
+            // alert(hear)
+            var part1 = 'No previous UdT participation';
+            if ($('#checkbox-1').parent().attr('id') == 'set')
+                part1 = 'Has been att UdT before';
+            var part2 = 'No previous integration program Participation';
+            if ($('#checkbox-1').parent().attr('id') == 'set')
+                part2 = $('#Q6Other').val();
+            // alert(part1 + ' ' + part2)
+            var intrst = $('#Q7Select').children().first().attr('id');
+            if (intrst == 'Q7Answer')
+                intrst = ''
+            var rate1 = $('#Q8Q1A').attr('style');
+            if (rate1 == 'margin-bottom: 2%')
+                rate1 = ''
+            var rate2 = $('#Q8Q2A').attr('style');
+            if (rate2 == 'margin-bottom: 2%')
+                rate2 = ''
+            var rate3 = $('#Q8Q3A').attr('style');
+            if (rate3 == 'margin-bottom: 2%')
+                rate3 = ''
+            var rate4 = $('#Q8Q4A').attr('style');
+            if (isNaN(rate4))
+                rate4 = ''
+            var expc = $('#Q9A').attr('style');
+            if (expc == null)
+                expc = ''
+            var change = $('#Q10A').val();
+            var presnt = $('#Q11A').attr('style');
+            if (presnt == null)
+                presnt = ''
+            var whyno = $('#Q12A').val();
+            var lrnd = $('#Q13A').val();
+            var scty = $('#Q14A').attr('style');
+            if (scty == null)
+                scty = ''
+            var prej = $('#Q15A').val();
+            var imprv = $('#Q16A').val();
+
+            var formData = {
+                'language': lang,
+                'age': age,
+                'natitonality': nationaltiy,
+                'rate_experience': xprc,
+                'would_reccommend': recc,
+                'how_heard': hear,
+                'been_to_UdT_before': part1,
+                'been_to_other': part2,
+                'interest_come_back': intrst,
+                'rate_cooking': rate1,
+                'rate_multiculural': rate2,
+                'rate_refugee_integration': rate3,
+                'rate_friends': rate4,
+                'rate_expectations': expc,
+                'what_change': change,
+                'rate_present': presnt,
+                'if_not_enjoyed': whyno,
+                'what_learned': lrnd,
+                'rate_open_tolerant': scty,
+                'how_prejudices': prej,
+                'improvements': imprv
+            };
+
+            var url = 'https://script.google.com/macros/s/AKfycbyxOo-0bgPvkSurGnKxgrlpSji9au0yYqMx006Jdg9udBOjPVM/exec';
+            e.preventDefault();
+            var jqxhr = $.ajax({
+                url: url,
+                method: "GET",
+                dataType: "json",
+                data: formData
+            }).success(
+                    setTimeout(function(){
+                        window.location = "https://ueberdentellerrand.org/";
+                    },2000)
+            );
+
+        });
+
+        bind_mouseenter();
+
+        function bind_mouseenter() {
+            $('.colins-submit').on('mouseenter', function(e) {
+                hover_tl.restart();
+                $('.colins-submit').off('mouseenter');
+                bind_mouseleave();
+            });
+        }
+        function bind_mouseleave() {
+            $('.colins-submit').on('mouseleave', function(e) {
+                hover_tl.reverse();
+                $('.colins-submit').off('mouseleave');
+                bind_mouseenter();
+            });
+        }
+
+    });
+
+</script>
+
+<style>
+
+
+    .styled-select.slate select {
+        border: 1px solid #ccc;
+        font-size: 16px;
+        height: 34px;
+        width: 268px;
+    }
+
+    /* -------------------- Colors: Text */
+    .slate select   { color: #000; }
+    .green select   { color: #fff; }
+    .blue select    { color: #fff; }
+    .yellow select  { color: #000; }
+    .black select   { color: #fff; }
+
+
+    /* -------------------- Select Box Styles: danielneumann.com Method */
+    /* -------------------- Source: http://danielneumann.com/blog/how-to-style-dropdown-with-css-only/ */
+    #mainselection select {
+        border: 0;
+        color: #EEE;
+        background: transparent;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 2px 10px;
+        width: 378px;
+        *width: 350px;
+        *background: #ffa836;
+        -webkit-appearance: none;
+    }
+
+
+
+    /* -------------------- Select Box Styles: stackoverflow.com Method */
+    /* -------------------- Source: http://stackoverflow.com/a/5809186 */
+    select#soflow, select#soflow-color {
+        -webkit-appearance: button;
+        -webkit-border-radius: 2px;
+        -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+        -webkit-padding-end: 20px;
+        -webkit-padding-start: 2px;
+        -webkit-user-select: none;
+        background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+        background-position: 97% center;
+        background-repeat: no-repeat;
+        border: 1px solid #AAA;
+        color: #555;
+        font-size: inherit;
+        margin-bottom: 10px;
+        overflow: hidden;
+        padding: 5px 10px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 300px;
+    }
+
+
+    /* only demo styles */
+
+
+    /* end only demo styles */
+
+    .checkbox-custom, .radio-custom {
+        opacity: 0;
+        position: absolute;
+    }
+
+    .checkbox-custom, .checkbox-custom-label, .radio-custom, .radio-custom-label {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 5px;
+        cursor: pointer;
+    }
+
+    .checkbox-custom-label, .radio-custom-label {
+        position: relative;
+    }
+
+    .checkbox-custom + .checkbox-custom-label:before, .radio-custom + .radio-custom-label:before {
+        content: '';
+        background: #fff;
+        border: 2px solid #ddd;
+        display: inline-block;
+        vertical-align: middle;
+        width: 15px;
+        height: 15px;
+        padding: 2px;
+        margin-right: 10px;
+        text-align: center;
+    }
+
+    .checkbox-custom:checked + .checkbox-custom-label:before {
+        background: #ff7f2e;
+        box-shadow: inset 0px 0px 0px 4px #fff;
+    }
+
+    .radio-custom + .radio-custom-label:before {
+        border-radius: 50%;
+    }
+
+    .radio-custom:checked + .radio-custom-label:before {
+        background: #ff7f2e;
+        box-shadow: inset 0px 0px 0px 4px #fff;
+    }
+
+
+    .checkbox-custom:focus + .checkbox-custom-label, .radio-custom:focus + .radio-custom-label {
+        outline: 1px solid #ddd; /* focus style */
+    }
+
+    .center-component {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    button.colins-submit {
+        background: transparent;
+        border: none;
+    }
+    button.colins-submit.is-active {
+        cursor: default;
+    }
+    button.colins-submit:focus {
+        outline: none;
+    }
+    button.colins-submit::-moz-focus-inner {
+        border: 0;
+    }
+    button.colins-submit svg text {
+        font-family: 'Montserrat', sans-serif;
+    }
+    button.colins-submit svg text.textNode {
+        fill: #ffa836;
+    }
+    button.colins-submit svg text.checkNode {
+        fill-opacity: 0;
+    }
+    button.colins-submit svg rect.btn-shape.btn-bg {
+        stroke: #c8c8c8;
+        fill: white;
+    }
+    button.colins-submit svg rect.btn-shape.btn-color {
+        stroke: #ffa836;
+        fill: white;
+        stroke-dasharray: 453;
+        stroke-dashoffset: 0;
+    }
+
+    p {
+        font-family: Montserrat, sans-serif;
+        color: #575757;
+        font-size: 1rem;
+        max-width: 330px;
+    }
+
+
+
+</style>
+
+<div class="container2">
+    <form id="contact" action="" method="">
+        <h3 id="surveyTitle">Feedbackbogen Kochkurs</h3>
+        <h4 id="Q1" style="font-weight: bold">Alter</h4>
+        <fieldset>
+            <input id="Q1A" placeholder="42" type="tel" tabindex="1" autofocus=""></fieldset>
+        <h4 id="Q2" style="font-weight: bold">Nationalität</h4>
+        <fieldset><input id="Q2A" placeholder="DE/SY/AF" type="email" tabindex="2"></fieldset>
+        <h4 id="Q3" style="font-weight: bold">Wie würdest Du dein Gesamterlebnis bewerten?</h4>
+        <div class="starmain" id="Q3A" style="">
+            <div class="star-border"><div class="star"></div></div>
+            <div class="star-border"><div class="star"></div></div>
+            <div class="star-border"><div class="star"></div></div>
+            <div class="star-border"><div class="star"></div></div>
+            <div class="star-border"><div class="star"></div></div>
+            <div class="star-border"><div class="star"></div></div>
+            <div class="star-border"><div class="star"></div></div>
+        </div>
+        <h4 id="Q4" style="font-weight: bold">Wie wahrscheinlich ist es, dass Du unsere Kochkurse weiterempfiehlst? </h4>
+        <div class="starmain" id="Q4A">
+            <div class="star-border"><div class="star"></div></div>
+            <div class="star-border"><div class="star"></div></div>
+            <div class="star-border"><div class="star"></div></div>
+            <div class="star-border"><div class="star"></div></div>
+            <div class="star-border"><div class="star"></div></div>
+            <div class="star-border"><div class="star"></div></div>
+            <div class="star-border"><div class="star"></div></div>
+        </div>
+
+        <h4 id="Q5" style="font-weight: bold">Wie hast Du von Über den Tellerrand erfahren? </h4>
+        <select name="City" id="soflow" onchange="changeFunc(value);">
+            <option id="Q5O1" value="1">Famile/Freunde</option>
+            <option id="Q5O2" value="2">Gutschein</option>
+            <option id="Q5O3" value="3">Arbeit</option>
+            <option id="Q5O4" value="4">Internet</option>
+            <option id="Q5O5" value="5">Sonstiges</option>
+            <fieldset>
+                <input style="display: none;" placeholder="Wie hast Du erfahren?" id="Q5Other" type="text" tabindex="1" autofocus="" >
+            </fieldset>
+        </select>
+        <h4 id="Q6" style="font-weight: bold">Hast Du bereits an anderen Begegnungsprojekten teilgenommen? </h4>
+        <div id="">
+            <input id="checkbox-1" onchange="changeSet(this);" class="checkbox-custom" name="checkbox-1" type="checkbox">
+            <label id="Q6Q1" for="checkbox-1" class="checkbox-custom-label">Weitere Über den Tellerrand Veranstaltungen:</label>
+        </div>
+        <div id="">
+            <input id="checkbox-2" onchange="changeFunc2(); changeSet(this)" class="checkbox-custom" name="checkbox-2" type="checkbox">
+            <label id="Q6Q2" for="checkbox-2" class="checkbox-custom-label">Andere</label>
+        </div>
+        <fieldset>
+            <input style="display: none;" placeholder="Wie heisst es/sie?" id="Q6Other" type="text" tabindex="1" autofocus="" >
+        </fieldset>
+
+        <h4 id="Q7" style="font-weight: bold">Bei Über den Tellerrand gibt es nicht nur Kochkurse - hättest Du Interesse, an anderen Veranstaltungen teilzunehmen?</h4>
+        <div id="Q7Select" style="display: flex; justify-content: space-evenly;">
+            <div id="Q7Answer"></div>
+
+                <input id="radio-1" onchange="setInterest(this)" class="radio-custom" name="radio-group" type="radio">
+                <label id="Q7Q1" for="radio-1" class="radio-custom-label">Ja</label>
+
+                <input id="radio-2" onchange="setInterest(this)" class="radio-custom"name="radio-group" type="radio">
+                <label id="Q7Q2" for="radio-2" class="radio-custom-label">Nein</label>
+
+                <input id="radio-3" onchange="setInterest(this)" class="radio-custom" name="radio-group" type="radio">
+                <label id="Q7Q3" for="radio-3" class="radio-custom-label">Vielleicht</label>
+        </div>
+
+        <h4 id="Q8" style="font-weight: bold">Wie wichtig sind Dir die folgenden Komponenten des Kochkurses auf einer Skala von 1 (nicht wichtig)
+            bis 7 (sehr wichtig)</h4>
+
+        <h4 style="text-align: center" id="Q8Q1"> Ein neues Gericht kochen lernen </h4>
+        <div class="starmain" style="margin-bottom: 2%" id="Q8Q1A">
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+        </div>
+
+        <h4 style="text-align: center" id="Q8Q2"> Einblick in eine neue Kultur bekommen
+        </h4>
+        <div class="starmain" style="margin-bottom: 2%" id="Q8Q2A">
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+        </div>
+
+        <h4 style="text-align: center" id="Q8Q3"> Beitrag zu Integration leisten
+        </h4>
+
+        <div class="starmain" style="margin-bottom: 2%" id="Q8Q3A">
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+        </div>
+
+        <h4 style="text-align: center" id="Q8Q4"> Einen schönen Abend mit Freunden/Familie genießen
+        </h4>
+
+        <div class="starmain" style="margin-bottom: 2%;" id="Q8Q4A">
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+
+        </div>
+
+        <h4 id="Q9" style="font-weight: bold"> Hat der Kochkurs Deine Erwartungen erfüllt?</h4>
+
+        <div class="starmain" id="Q9A">
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+
+        </div>
+
+        <h4 id="Q10">Wenn nein, warum nicht?</h4>
+        <fieldset><input id="Q10A" placeholder="..." type="text" tabindex="2"></fieldset>
+
+        <h4 id="Q11" style="font-weight: bold"> Wie haben Dir die Präsentationen gefallen?
+        </h4>
+
+        <div class="starmain" id="Q11A">
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+
+        </div>
+
+
+        <h4 id="Q12">Wenn sie Dir nicht gefallen haben, warum nicht?</h4>
+        <fieldset><input id="Q12A" placeholder="..." type="text" tabindex="2"></fieldset>
+
+        <h4 id="Q13" style="font-weight: bold"> Was hast Du neben dem Kochen neues gelernt?</h4>
+        <fieldset><input id="Q13A" placeholder="..." type="text" tabindex="2"></fieldset>
+
+        <h4 id="Q14" style="font-weight: bold"> Inwiefern glaubst Du, dass dieser Kochkurs zu einer offenen und toleranten Gesellschaft beitragen kann?
+        </h4>
+
+        <div class="starmain" id="Q14A">
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+
+        </div>
+
+        <h4 id="Q15" style="font-weight: bold">Wie glaubst Du, dass durch einen Kochkurs eventuellen Vorurteilen gegenüber Menschen mit Fluchterfahrung entgegengewirkt werden kann?</h4>
+        <fieldset><input id="Q15A" placeholder="..." type="text" tabindex="2"></fieldset>
+
+        <h4 id="Q16" style="font-weight: bold">Wie können wir unsere Kochkurse weiter verbessern?</h4>
+        <fieldset><textarea id="Q16A" placeholder="...." tabindex="5"></textarea></fieldset>
+
+
+
+        <div class="center-component">
+            <button type="button" class="colins-submit">
+                <svg width="196" height="70"
+                     viewPort="0 0 196 70" version="1.1"
+                     xmlns="http://www.w3.org/2000/svg">
+
+                    <rect class="btn-shape btn-bg"
+                          x="3" y="3"
+                          width="190" height="64"
+                          rx="32" ry="32"
+                          fill="#ffffff"
+                          fill-opacity="1"
+                          stroke="#ccc" stroke-width="4"
+                    />
+                    <rect class="btn-shape btn-color"
+                          x="3" y="3"
+                          width="190" height="64"
+                          rx="32" ry="32"
+                          fill="#ffffff"
+                          fill-opacity="0"
+                          stroke=#ff7f2e stroke-width="4"
+                    />
+                    <text class="checkNode" x="96" y="40"
+                          font-family="Montserrat"
+                          font-size="22"
+                          fill-opacity="1"
+                          text-anchor="middle"
+                          fill="rgb(255,255,255)" >
+                        ✔
+                    </text>
+                    <text class="textNode" x="96" y="40"
+                          transform="scale(1)"
+                          font-family="Montserrat"
+                          font-size="16"
+                          fill-opacity="1"
+                          text-anchor="middle"
+                          fill="#ff7f2e" >
+                        Submit
+                    </text>
+                </svg>
+            </button>
+        </div>
+    </form>
+</div>
+
+
+<footer>
+    <nav class="moduletable">
+        <ul class="nav menu">
+            <li class="item-163 deeper parent"><a href="/about" class="fa-newspaper-o"><i class="fa fa-newspaper-o"></i>Über
+                uns</a>
+                <ul class="nav-child unstyled small">
+                    <li class="item-187"><a href="https://ueberdentellerrand.org/about#kitchen-hub">Willkommen im
+                        Kitchen Hub</a></li>
+                    <li class="item-330"><a href="https://ueberdentellerrand.org/about#team">Team</a></li>
+                    <li class="item-435"><a href="https://ueberdentellerrand.org/about#news">Newsfeed</a></li>
+                    <li class="item-190"><a href="https://ueberdentellerrand.org/about#downloads">Infomaterial</a></li>
+                    <li class="item-188"><a href="https://ueberdentellerrand.org/locations">Standorte / Satelliten</a>
+                    </li>
+                    <li class="item-189"><a href="https://ueberdentellerrand.org/about#walloffame">Partner &amp;
+                        Unterstützer</a></li>
+                    <li class="item-191"><a href="https://ueberdentellerrand.org/about#pressreview">Pressespiegel</a>
+                    </li>
+                    <li class="item-338"><a href="https://ueberdentellerrand.org/about/transparenz">Transparenz</a></li>
+                </ul>
+            </li>
+            <li class="item-165 divider deeper parent"><span class="separator fa-users"><i
+                    class="separator fa fa-users"></i>Projekte</span>
+                <ul class="nav-child unstyled small">
+                    <li class="item-192"><a href="https://ueberdentellerrand.org/projects/champions">Champions
+                        (Community Events)</a></li>
+                    <li class="item-396"><a href="https://ueberdentellerrand.org/inselgarten">Inselgarten</a></li>
+                    <li class="item-193"><a href="https://ueberdentellerrand.org/locations">Satelliten</a></li>
+                    <li class="item-194"><a href="http://www.kitchenontherun.org" target="_blank"
+                                            rel="noopener noreferrer">Kitchen on the run</a></li>
+                    <li class="item-195"><a href="https://ueberdentellerrand.org/projects/building-bridges">Building
+                        bridges</a></li>
+                    <li class="item-196"><a href="https://ueberdentellerrand.org/projects/jobbuddys">Job Buddy
+                        Programm</a></li>
+                </ul>
+            </li>
+            <li class="item-177 divider deeper parent"><span class="separator fa-calendar-check-o"><i
+                    class="separator fa fa-calendar-check-o"></i>Veranstaltungen</span>
+                <ul class="nav-child unstyled small">
+                    <li class="item-178"><a href="https://www.facebook.com/pg/ueberdentellerrandkochen/events/">Community
+                        Veranstaltungen</a></li>
+                    <li class="item-179"><a href="https://ueberdentellerrandkochen.de/kochkurse" class="fa-cutlery"><i
+                            class="fa fa-cutlery"></i>Kochkurse</a></li>
+                    <li class="item-201"><a href="https://ueberdentellerrand.org/locations">Nicht in Berlin?</a></li>
+                </ul>
+            </li>
+            <li class="item-169"><a href="https://ueberdentellerrand.org/locations" class="fa-map-marker locations"><i
+                    class="fa fa-map-marker locations"></i>Standorte</a></li>
+            <li class="item-209 divider deeper parent"><span class="separator fa-shopping-basket"><i
+                    class="separator fa fa-shopping-basket"></i>Shop</span>
+                <ul class="nav-child unstyled small">
+                    <li class="item-210"><a href="https://ueberdentellerrandkochen.de/shop/books">Kochbücher</a></li>
+                    <li class="item-211"><a href="https://ueberdentellerrandkochen.de/shop/kochkurse">Kochkurse</a></li>
+                </ul>
+            </li>
+            <li class="item-398"><a href="https://ueberdentellerrand.org/recipes" class="fa-cutlery"><i
+                    class="fa fa-cutlery"></i>Rezepte</a></li>
+            <li class="item-213 divider deeper parent"><span class="separator fa-diamond"><i
+                    class="separator fa fa-diamond"></i>Unterstützen</span>
+                <ul class="nav-child unstyled small">
+                    <li class="item-214"><a href="https://ueberdentellerrand.org/support/join">Tritt dem Team bei</a>
+                    </li>
+                    <li class="item-409"><a href="https://ueberdentellerrand.org/support/donate">Spenden</a></li>
+                    <li class="item-216"><a href="https://ueberdentellerrandkochen.de/shop/books">Hol dir unser
+                        Kochbuch</a></li>
+                    <li class="item-217"><a href="https://ueberdentellerrand.org/about#walloffame">Sponsoren &amp;
+                        Unterstützer</a></li>
+                </ul>
+            </li>
+            <li class="item-405 divider deeper parent"><span class="separator fa-phone"><i
+                    class="separator fa fa-phone"></i>Kontakt</span>
+                <ul class="nav-child unstyled small">
+                    <li class="item-219"><a href="https://ueberdentellerrand.org/contact/information">Kontaktiere uns
+                        jetzt!</a></li>
+                    <li class="item-403"><a href="https://ueberdentellerrand.org/contact/press">Pressebereich</a></li>
+                    <li class="item-461"><a
+                            href="https://ueberdentellerrand.us14.list-manage.com/subscribe?u=35de3433816d51cd16c3990e7&amp;id=a63bafc4ad"
+                            target="_blank" rel="noopener noreferrer">Newsletter</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <div class="footer">
+        <nav class="moduletablefootermenu">
+            <ul class="nav menu">
+                <li class="item-261"><a href="https://ueberdentellerrand.org/imprint">Impressum</a></li>
+                <li class="item-263"><a href="https://ueberdentellerrand.org/privacy">Datenschutz</a></li>
+                <li class="item-265"><a href="https://ueberdentellerrand.org/terms">Allgemeine Geschäftsbedingungen</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="social"><span class="before"><span class="orange">#</span>make<span
+                class="orange">the</span>world<span class="orange">a</span>better<span
+                class="orange">plate</span></span>
+            <div class="data_social_icons"><a class="social-item" target="_blank"
+                                              href="https://www.facebook.com/ueberdentellerrandkochen"><img
+                    title="Facebook"
+                    src="https://ueberdentellerrand.org/media/com_form2content/documents/c9/a5/f41/facebook.svg"
+                    onerror="this.src='images/stories/com_form2content/p9/f5/facebook.png'"></a><a class="social-item"
+                                                                                                   target="_blank"
+                                                                                                   href="https://twitter.com/betterplate"><img
+                    title="Twitter"
+                    src="https://ueberdentellerrand.org/media/com_form2content/documents/c9/a6/f41/twitter.svg"
+                    onerror="this.src='images/stories/com_form2content/p9/f6/twitter.png'"></a><a class="social-item"
+                                                                                                  target="_blank"
+                                                                                                  href="https://www.flickr.com/photos/124254837@N08/"><img
+                    title="Flickr"
+                    src="https://ueberdentellerrand.org/media/com_form2content/documents/c9/a7/f41/flickr.svg"
+                    onerror="this.src='images/stories/com_form2content/p9/f7/flickr.png'"></a><a class="social-item"
+                                                                                                 target="_blank"
+                                                                                                 href="https://instagram.com/ueber_den_tellerrand_kochen"><img
+                    title="Instagram"
+                    src="https://ueberdentellerrand.org/media/com_form2content/documents/c9/a8/f41/instagram.svg"
+                    onerror="this.src='images/stories/com_form2content/p9/f8/instagram.png'"></a><a class="social-item"
+                                                                                                    target="_blank"
+                                                                                                    href="https://www.youtube.com/channel/UCvh3V4W78AtCOqhTR2oY8fg"><img
+                    title="YouTube"
+                    src="https://ueberdentellerrand.org/media/com_form2content/documents/c9/a9/f41/youtube.svg"
+                    onerror="this.src='images/stories/com_form2content/p9/f9/youtube.png'"></a></div>
+        </div>
+        <span class="copyright">Copyright © Über den Tellerrand e.V. 2013 – 2019        <br><a rel="nofollow"
+                                                                                               href="https://wanjapflueger.de"
+                                                                                               target="_blank">powered by wfp</a></span>
+    </div>
+</footer>
+<script src="https://ueberdentellerrand.org/templates/frontend/js/jquery.widowFix.js" type="text/javascript"></script>
+<script src="https://ueberdentellerrand.org/templates/frontend/js/imagelightbox.min.js" type="text/javascript"></script>
+<script src="https://ueberdentellerrand.org/templates/frontend/js/slick.min.js" type="text/javascript"></script>
+<script src="https://ueberdentellerrand.org/templates/frontend/js/jquery.youtubebackground.js"
+        type="text/javascript"></script>
+</body>
