@@ -937,10 +937,10 @@
             $('#Q13').text('Was hast Du neben dem Kochen neues gelernt?');
             // $('#Q14').text('Inwiefern glaubst Du, dass dieser Kochkurs zu einer offenen und toleranten Gesellschaft beitragen kann?');
             $('#Q14').text('Wie glaubst Du, dass durch einen Kochkurs eventuellen Vorurteilen gegenüber Menschen mit Fluchterfahrung entgegengewirkt werden kann?');
-            $('#Q14Q1').text('DE Having an encounter space for people to meet');
-            $('#Q14Q2').text('DE Building common ground');
-            $('#Q14Q3').text('DE Mutual learning about different cultures');
-            $('#Q14Q4').text('Andere');
+            $('#Q14Q1').text('Begegnungsräume zu haben um Leute zu treffen');
+            $('#Q14Q2').text('Gemeinsamkeiten entdecken');
+            $('#Q14Q3').text('Gemeinsam über kulturelle Unterschiede lernen');
+            $('#Q14Q4').text('Anderes');
             $('#Q16').text('Wie können wir unsere Kochkurse weiter verbessern?');
         }
     }
@@ -1154,7 +1154,6 @@
                 'how_heard': hear,
                 'been_to_UdT_before': part1,
                 'been_to_other': part2,
-                //TODO
                 'no_integration_participate' : part3,
                 'rate_cooking': rate1,
                 'rate_multiculural': rate2,
@@ -1162,7 +1161,6 @@
                 'rate_friends': rate4,
                 'rate_present': presnt,
                 'what_learned': lrnd,
-                //TODO
                 'encounter': select1,
                 'common_ground': select3,
                 'mutual_learning': select4,
@@ -1564,23 +1562,23 @@
 
         <div id="">
             <input id="checkbox-4" onchange="changeSet(this);" class="checkbox-custom" name="checkbox-4" type="checkbox">
-            <label id="Q14Q1" for="checkbox-4" class="checkbox-custom-label">DE Having an encounter space for people to meet</label>
+            <label id="Q14Q1" for="checkbox-4" class="checkbox-custom-label">Begegnungsräume zu haben um Leute zu treffen</label>
         </div>
 
         <div id="">
             <input id="checkbox-6" onchange="changeSet(this)" class="checkbox-custom" name="checkbox-6" type="checkbox">
-            <label id="Q14Q2" for="checkbox-6" class="checkbox-custom-label">DE Building common ground</label>
+            <label id="Q14Q2" for="checkbox-6" class="checkbox-custom-label">Gemeinsamkeiten entdecken</label>
         </div>
 
         <div id="">
             <input id="checkbox-7" onchange="changeSet(this)" class="checkbox-custom" name="checkbox-7" type="checkbox">
-            <label id="Q14Q3" for="checkbox-7" class="checkbox-custom-label">DE Mutual learning about different cultures</label>
+            <label id="Q14Q3" for="checkbox-7" class="checkbox-custom-label">Gemeinsam über kulturelle Unterschiede lernen</label>
         </div>
 
 
         <div id="">
             <input id="checkbox-5" onchange="changeFunc2('Q14Other'); changeSet(this)" class="checkbox-custom" name="checkbox-2" type="checkbox">
-            <label id="Q14Q4" for="checkbox-5" class="checkbox-custom-label">Andere</label>
+            <label id="Q14Q4" for="checkbox-5" class="checkbox-custom-label">Anderes</label>
         </div>
         <fieldset>
             <input style="display: none;" placeholder="..." id="Q14Other" type="text" tabindex="1" autofocus="" >
