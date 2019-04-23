@@ -863,8 +863,7 @@
             $('#flag').attr('src', 'https://ueberdentellerrand.org/media/mod_languages/images/en.gif')
             $('#Q1').text('Age');
             $('#Q2').text('Nationality');
-            $('#Q3').text('How would you rate your overall experience?');
-            // $('#Q4').text('How likely are you to recommend this class to others?');
+            $('#Q4').text('How would you rate your overall experience?');
             $('#Q5').text('How did you hear about Über den Tellerrand?');
             $('#Q5O1').text('Family/Friends');
             $('#Q5O2').text('Voucher');
@@ -888,12 +887,12 @@
             $('#Q8Q4').text('Enjoying an interactive event with friends/family');
             // $('#Q9').text('How well did the program meet your expectations?');
             // $('#Q10').text('If not, what would you change?');
-            $('#Q11').text('How did you like the presentation?');
+            $('#Q11').text('How did you like the presentations?');
             // $('#Q12').text('If you did not enjoy them, why not?');
             $('#Q13').text('What, if anything, did you learn besides cooking?');
             // $('#Q14').text('How well do you believe this class helps in achieving an open and tolerant society?');
 
-            $('#Q14').text('How do you think that a cooking class can counteract any prejudice against refugees?');
+            $('#Q14').text('How do you think that a cooking class can counteract prejudices against refugees?');
             $('#Q14Q1').text('Having an encounter space for people to meet');
             $('#Q14Q2').text('Building common ground');
             $('#Q14Q3').text('Mutual learning about different cultures');
@@ -907,7 +906,7 @@
             $('#Q1').text('Alter');
             $('#Q2').text('Nationalität');
             $('#Q3').text('Wie würdest Du dein Gesamterlebnis bewerten?');
-            // $('#Q4').text('Wie wahrscheinlich ist es, dass Du unsere Kochkurse weiterempfiehlst?');
+            $('#Q4').text('Wie wahrscheinlich ist es, dass Du unsere Kochkurse weiterempfiehlst?');
             $('#Q5').text('Wie hast Du von Über den Tellerrand erfahren?');
             $('#Q5O1').text('Famile/Freunde');
             $('#Q5O2').text('Gutschein');
@@ -1096,7 +1095,7 @@
                 lang = 'EN'
             var age = $('#Q1A').val();
             var nationaltiy= $('#Q2A').val();
-            var xprc = $('#Q3A').attr('style');
+            var xprc = $('#Q4A').attr('style');
             var hear = $('#soflow').children("option:selected").val()
             if (hear < 5)
                 hear = $('#soflow').children("option:selected").text()
@@ -1150,6 +1149,7 @@
                 'date_time': (new Date).toUTCString(),
                 'language': lang,
                 'age': age,
+                'rate_xprc': xprc,
                 'natitonality': nationaltiy,
                 'how_heard': hear,
                 'been_to_UdT_before': part1,
