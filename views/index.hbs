@@ -864,7 +864,7 @@
             $('#Q1').text('Age');
             $('#Q2').text('Nationality');
             $('#Q3').text('How would you rate your overall experience?');
-            $('#Q4').text('How likely are you to recommend this class to others?');
+            // $('#Q4').text('How likely are you to recommend this class to others?');
             $('#Q5').text('How did you hear about Über den Tellerrand?');
             $('#Q5O1').text('Family/Friends');
             $('#Q5O2').text('Voucher');
@@ -876,22 +876,30 @@
             $('#Q6Other').attr('placeholder', 'What was it called?');
             $('#Q6Q1').text('Über den Tellerrand Community Programs');
             $('#Q6Q2').text('Other');
-            $('#Q7').text('Über den Tellerrand has many programs outside of cooking, would you be interested in attending those?');
-            $('#Q7Q1').text('Yes');
-            $('#Q7Q2').text('No');
-            $('#Q7Q3').text('Possibly');
+            $('#Q6Q3').text('None');
+            // $('#Q7').text('Über den Tellerrand has many programs outside of cooking, would you be interested in attending those?');
+            // $('#Q7Q1').text('Yes');
+            // $('#Q7Q2').text('No');
+            // $('#Q7Q3').text('Possibly');
             $('#Q8').text('How important are the following aspects of the class to you');
             $('#Q8Q1').text('Learning to cook an ethnic meal');
             $('#Q8Q2').text('Interested in multiculturalism');
             $('#Q8Q3').text('Helping with refugee integration');
             $('#Q8Q4').text('Enjoying an interactive event with friends/family');
-            $('#Q9').text('How well did the program meet your expectations?');
-            $('#Q10').text('If not, what would you change?');
+            // $('#Q9').text('How well did the program meet your expectations?');
+            // $('#Q10').text('If not, what would you change?');
             $('#Q11').text('How did you like the presentation?');
-            $('#Q12').text('If you did not enjoy them, why not?');
+            // $('#Q12').text('If you did not enjoy them, why not?');
             $('#Q13').text('What, if anything, did you learn besides cooking?');
-            $('#Q14').text('How well do you believe this class helps in achieving an open and tolerant society?');
-            $('#Q15').text('How do you think that a cooking class can counteract any prejudice against refugees?');
+            // $('#Q14').text('How well do you believe this class helps in achieving an open and tolerant society?');
+
+            $('#Q14').text('How do you think that a cooking class can counteract any prejudice against refugees?');
+            $('#Q14Q1').text('Having an encounter space for people to meet');
+            $('#Q14Q2').text('Building common ground');
+            $('#Q14Q3').text('Mutual learning about different cultures');
+            $('#Q14Q4').text('Other');
+
+
             $('#Q16').text('What are your suggestions on improving the program, if any?');
         }
         else{
@@ -899,7 +907,7 @@
             $('#Q1').text('Alter');
             $('#Q2').text('Nationalität');
             $('#Q3').text('Wie würdest Du dein Gesamterlebnis bewerten?');
-            $('#Q4').text('Wie wahrscheinlich ist es, dass Du unsere Kochkurse weiterempfiehlst?');
+            // $('#Q4').text('Wie wahrscheinlich ist es, dass Du unsere Kochkurse weiterempfiehlst?');
             $('#Q5').text('Wie hast Du von Über den Tellerrand erfahren?');
             $('#Q5O1').text('Famile/Freunde');
             $('#Q5O2').text('Gutschein');
@@ -911,23 +919,28 @@
             $('#Q6Other').attr('placeholder','Wie heisst es/sie?');
             $('#Q6Q1').text('Weitere Über den Tellerrand Veranstaltungen:');
             $('#Q6Q2').text('Andere');
-            $('#Q7').text('Bei Über den Tellerrand gibt es nicht nur Kochkurse - hättest Du Interesse, an anderen Veranstaltungen teilzunehmen?');
-            $('#Q7Q1').text('Ja');
-            $('#Q7Q2').text('Nein');
-            $('#Q7Q3').text('Vielleicht');
+            $('#Q6Q3').text('Kein');
+            // $('#Q7').text('Bei Über den Tellerrand gibt es nicht nur Kochkurse - hättest Du Interesse, an anderen Veranstaltungen teilzunehmen?');
+            // $('#Q7Q1').text('Ja');
+            // $('#Q7Q2').text('Nein');
+            // $('#Q7Q3').text('Vielleicht');
             $('#Q8').text('Wie wichtig sind Dir die folgenden Komponenten des Kochkurses auf einer Skala von 1 (nicht wichtig)\n' +
                     '            bis 7 (sehr wichtig)');
             $('#Q8Q1').text('Ein neues Gericht kochen lernen');
             $('#Q8Q2').text('Einblick in eine neue Kultur bekommen');
             $('#Q8Q3').text('Beitrag zu Integration leisten');
             $('#Q8Q4').text('Einen schönen Abend mit Freunden/Familie genießen');
-            $('#Q9').text('Hat der Kochkurs Deine Erwartungen erfüllt?');
-            $('#Q10').text('Wenn nein, warum nicht?');
+            // $('#Q9').text('Hat der Kochkurs Deine Erwartungen erfüllt?');
+            // $('#Q10').text('Wenn nein, warum nicht?');
             $('#Q11').text('Wie haben Dir die Präsentationen gefallen?');
-            $('#Q12').text('Wenn sie Dir nicht gefallen haben, warum nicht?');
+            // $('#Q12').text('Wenn sie Dir nicht gefallen haben, warum nicht?');
             $('#Q13').text('Was hast Du neben dem Kochen neues gelernt?');
-            $('#Q14').text('Inwiefern glaubst Du, dass dieser Kochkurs zu einer offenen und toleranten Gesellschaft beitragen kann?');
-            $('#Q15').text('Wie glaubst Du, dass durch einen Kochkurs eventuellen Vorurteilen gegenüber Menschen mit Fluchterfahrung entgegengewirkt werden kann?');
+            // $('#Q14').text('Inwiefern glaubst Du, dass dieser Kochkurs zu einer offenen und toleranten Gesellschaft beitragen kann?');
+            $('#Q14').text('Wie glaubst Du, dass durch einen Kochkurs eventuellen Vorurteilen gegenüber Menschen mit Fluchterfahrung entgegengewirkt werden kann?');
+            $('#Q14Q1').text('DE Having an encounter space for people to meet');
+            $('#Q14Q2').text('DE Building common ground');
+            $('#Q14Q3').text('DE Mutual learning about different cultures');
+            $('#Q14Q4').text('Andere');
             $('#Q16').text('Wie können wir unsere Kochkurse weiter verbessern?');
         }
     }
@@ -960,14 +973,16 @@
             $(obj).parent().attr('id', 'set');
     }
 
-    function changeFunc2() {
-        var x = document.getElementById("Q6Other");
+    function changeFunc2(str) {
+        var x = document.getElementById(str);
         if (x.style.display === "none") {
             x.style.display = "block";
         } else {
             x.style.display = "none";
         }
     }
+
+
 
     $(function(){
 
@@ -1082,25 +1097,20 @@
             var age = $('#Q1A').val();
             var nationaltiy= $('#Q2A').val();
             var xprc = $('#Q3A').attr('style');
-            var recc = $('#Q4A').attr('style');
-            if (recc == null)
-                recc = ''
             var hear = $('#soflow').children("option:selected").val()
             if (hear < 5)
                 hear = $('#soflow').children("option:selected").text()
             else
                 hear = $('#Q5Other').val()
-            // alert(hear)
             var part1 = 'No previous UdT participation';
             if ($('#checkbox-1').parent().attr('id') == 'set')
-                part1 = 'Has been att UdT before';
-            var part2 = 'No previous integration program Participation';
+                part1 = 'Has been at UdT before';
+            var part2 = '';
             if ($('#checkbox-2').parent().attr('id') == 'set')
                 part2 = $('#Q6Other').val();
-            // alert(part1 + ' ' + part2)
-            var intrst = $('#Q7Select').children().first().attr('id');
-            if (intrst == 'Q7Answer')
-                intrst = ''
+            var part3 = 'No previous integration program Participation';
+            if ($('#checkbox-3').parent().attr('id') == 'set')
+                part3 = 'Never participated in integration';
             var rate1 = $('#Q8Q1A').attr('style');
             if (rate1 == 'margin-bottom: 2%')
                 rate1 = ''
@@ -1113,19 +1123,27 @@
             var rate4 = $('#Q8Q4A').attr('style');
             if (isNaN(rate4))
                 rate4 = ''
-            var expc = $('#Q9A').attr('style');
-            if (expc == null)
-                expc = ''
-            var change = $('#Q10A').val();
             var presnt = $('#Q11A').attr('style');
             if (presnt == null)
                 presnt = ''
-            var whyno = $('#Q12A').val();
             var lrnd = $('#Q13A').val();
-            var scty = $('#Q14A').attr('style');
-            if (scty == null)
-                scty = ''
-            var prej = $('#Q15A').val();
+
+            var select1 = '';
+            if ($('#checkbox-4').parent().attr('id') == 'set')
+                select1 = 'Having Encounter Space Selected';
+
+            var select2 = '';
+            if ($('#checkbox-5').parent().attr('id') == 'set')
+                select2 = $('#Q14Other').val();
+
+            var select3 = '';
+            if ($('#checkbox-6').parent().attr('id') == 'set')
+                select3 = 'Common Ground Selected';
+
+            var select4 = '';
+            if ($('#checkbox-7').parent().attr('id') == 'set')
+                select4 = 'Mutual Learning Selected';
+
             var imprv = $('#Q16A').val();
 
             var formData = {
@@ -1133,23 +1151,22 @@
                 'language': lang,
                 'age': age,
                 'natitonality': nationaltiy,
-                'rate_experience': xprc,
-                'would_reccommend': recc,
                 'how_heard': hear,
                 'been_to_UdT_before': part1,
                 'been_to_other': part2,
-                'interest_come_back': intrst,
+                //TODO
+                'no_integration_participate' : part3,
                 'rate_cooking': rate1,
                 'rate_multiculural': rate2,
                 'rate_refugee_integration': rate3,
                 'rate_friends': rate4,
-                'rate_expectations': expc,
-                'what_change': change,
                 'rate_present': presnt,
-                'if_not_enjoyed': whyno,
                 'what_learned': lrnd,
-                'rate_open_tolerant': scty,
-                'how_prejudices': prej,
+                //TODO
+                'encounter': select1,
+                'common_ground': select3,
+                'mutual_learning': select4,
+                'other_value': select2,
                 'improvements': imprv
             };
 
@@ -1358,16 +1375,7 @@
             <input id="Q1A" placeholder="42" type="tel" tabindex="1" autofocus=""></fieldset>
         <h4 id="Q2" style="font-weight: bold">Nationalität</h4>
         <fieldset><input id="Q2A" placeholder="DE/SY/AF/EN/..." type="email" tabindex="2"></fieldset>
-        <h4 id="Q3" style="font-weight: bold">Wie würdest Du dein Gesamterlebnis bewerten?</h4>
-        <div class="starmain" id="Q3A" style="">
-            <div class="star-border"><div class="star"></div></div>
-            <div class="star-border"><div class="star"></div></div>
-            <div class="star-border"><div class="star"></div></div>
-            <div class="star-border"><div class="star"></div></div>
-            <div class="star-border"><div class="star"></div></div>
-            <div class="star-border"><div class="star"></div></div>
-            <div class="star-border"><div class="star"></div></div>
-        </div>
+
         <h4 id="Q4" style="font-weight: bold">Wie wahrscheinlich ist es, dass Du unsere Kochkurse weiterempfiehlst? </h4>
         <div class="starmain" id="Q4A">
             <div class="star-border"><div class="star"></div></div>
@@ -1396,26 +1404,17 @@
             <label id="Q6Q1" for="checkbox-1" class="checkbox-custom-label">Weitere Über den Tellerrand Veranstaltungen:</label>
         </div>
         <div id="">
-            <input id="checkbox-2" onchange="changeFunc2(); changeSet(this)" class="checkbox-custom" name="checkbox-2" type="checkbox">
+            <input id="checkbox-2" onchange="changeFunc2('Q6Other'); changeSet(this)" class="checkbox-custom" name="checkbox-2" type="checkbox">
             <label id="Q6Q2" for="checkbox-2" class="checkbox-custom-label">Andere</label>
         </div>
         <fieldset>
             <input style="display: none;" placeholder="Wie heisst es/sie?" id="Q6Other" type="text" tabindex="1" autofocus="" >
         </fieldset>
-
-        <h4 id="Q7" style="font-weight: bold">Bei Über den Tellerrand gibt es nicht nur Kochkurse - hättest Du Interesse, an anderen Veranstaltungen teilzunehmen?</h4>
-        <div id="Q7Select" style="display: flex; justify-content: space-evenly;">
-            <div id="Q7Answer"></div>
-
-                <input id="radio-1" onchange="setInterest(this)" class="radio-custom" name="radio-group" type="radio">
-                <label id="Q7Q1" for="radio-1" class="radio-custom-label">Ja</label>
-
-                <input id="radio-2" onchange="setInterest(this)" class="radio-custom"name="radio-group" type="radio">
-                <label id="Q7Q2" for="radio-2" class="radio-custom-label">Nein</label>
-
-                <input id="radio-3" onchange="setInterest(this)" class="radio-custom" name="radio-group" type="radio">
-                <label id="Q7Q3" for="radio-3" class="radio-custom-label">Vielleicht</label>
+        <div id="">
+            <input id="checkbox-3" onchange="changeSet(this)" class="checkbox-custom" name="checkbox-3" type="checkbox">
+            <label id="Q6Q3" for="checkbox-3" class="checkbox-custom-label">Keine</label>
         </div>
+
 
         <h4 id="Q8" style="font-weight: bold">Wie wichtig sind Dir die folgenden Komponenten des Kochkurses auf einer Skala von 1 (nicht wichtig)
             bis 7 (sehr wichtig)</h4>
@@ -1526,35 +1525,6 @@
 
         </div>
 
-        <h4 id="Q9" style="font-weight: bold"> Hat der Kochkurs Deine Erwartungen erfüllt?</h4>
-
-        <div class="starmain" id="Q9A">
-            <div class="star-border">
-                <div class="star"></div>
-            </div>
-            <div class="star-border">
-                <div class="star"></div>
-            </div>
-            <div class="star-border">
-                <div class="star"></div>
-            </div>
-            <div class="star-border">
-                <div class="star"></div>
-            </div>
-            <div class="star-border">
-                <div class="star"></div>
-            </div>
-            <div class="star-border">
-                <div class="star"></div>
-            </div>
-            <div class="star-border">
-                <div class="star"></div>
-            </div>
-
-        </div>
-
-        <h4 id="Q10">Wenn nein, warum nicht?</h4>
-        <fieldset><input id="Q10A" placeholder="..." type="text" tabindex="2"></fieldset>
 
         <h4 id="Q11" style="font-weight: bold"> Wie haben Dir die Präsentationen gefallen?
         </h4>
@@ -1585,8 +1555,6 @@
         </div>
 
 
-        <h4 id="Q12">Wenn sie Dir nicht gefallen haben, warum nicht?</h4>
-        <fieldset><input id="Q12A" placeholder="..." type="text" tabindex="2"></fieldset>
 
         <h4 id="Q13" style="font-weight: bold"> Was hast Du neben dem Kochen neues gelernt?</h4>
         <fieldset><input id="Q13A" placeholder="..." type="text" tabindex="2"></fieldset>
@@ -1594,33 +1562,29 @@
         <h4 id="Q14" style="font-weight: bold"> Inwiefern glaubst Du, dass dieser Kochkurs zu einer offenen und toleranten Gesellschaft beitragen kann?
         </h4>
 
-        <div class="starmain" id="Q14A">
-            <div class="star-border">
-                <div class="star"></div>
-            </div>
-            <div class="star-border">
-                <div class="star"></div>
-            </div>
-            <div class="star-border">
-                <div class="star"></div>
-            </div>
-            <div class="star-border">
-                <div class="star"></div>
-            </div>
-            <div class="star-border">
-                <div class="star"></div>
-            </div>
-            <div class="star-border">
-                <div class="star"></div>
-            </div>
-            <div class="star-border">
-                <div class="star"></div>
-            </div>
-
+        <div id="">
+            <input id="checkbox-4" onchange="changeSet(this);" class="checkbox-custom" name="checkbox-4" type="checkbox">
+            <label id="Q14Q1" for="checkbox-4" class="checkbox-custom-label">DE Having an encounter space for people to meet</label>
         </div>
 
-        <h4 id="Q15" style="font-weight: bold">Wie glaubst Du, dass durch einen Kochkurs eventuellen Vorurteilen gegenüber Menschen mit Fluchterfahrung entgegengewirkt werden kann?</h4>
-        <fieldset><input id="Q15A" placeholder="..." type="text" tabindex="2"></fieldset>
+        <div id="">
+            <input id="checkbox-6" onchange="changeSet(this)" class="checkbox-custom" name="checkbox-6" type="checkbox">
+            <label id="Q14Q2" for="checkbox-6" class="checkbox-custom-label">DE Building common ground</label>
+        </div>
+
+        <div id="">
+            <input id="checkbox-7" onchange="changeSet(this)" class="checkbox-custom" name="checkbox-7" type="checkbox">
+            <label id="Q14Q3" for="checkbox-7" class="checkbox-custom-label">DE Mutual learning about different cultures</label>
+        </div>
+
+
+        <div id="">
+            <input id="checkbox-5" onchange="changeFunc2('Q14Other'); changeSet(this)" class="checkbox-custom" name="checkbox-2" type="checkbox">
+            <label id="Q14Q4" for="checkbox-5" class="checkbox-custom-label">Andere</label>
+        </div>
+        <fieldset>
+            <input style="display: none;" placeholder="..." id="Q14Other" type="text" tabindex="1" autofocus="" >
+        </fieldset>
 
         <h4 id="Q16" style="font-weight: bold">Wie können wir unsere Kochkurse weiter verbessern?</h4>
         <fieldset><textarea id="Q16A" placeholder="...." tabindex="5"></textarea></fieldset>
