@@ -49,11 +49,11 @@
         function hasScrolled() {
             var st = $(this).scrollTop();
 
-            // Users have to scroll up/down more than delta before something happens
+// Users have to scroll up/down more than delta before something happens
             if (Math.abs(lastScrollTop - st) <= delta)
                 return;
 
-            // If they scrolled down and they have passed the offset then add do something
+// If they scrolled down and they have passed the offset then add do something
             if (st > lastScrollTop && st > offset) {
                 // Scroll Down
                 $('header').animate({'top': -headerHeight}, 600);
@@ -171,8 +171,8 @@
 
         // Check for Windows and toggle scrollbar
         if (navigator.appVersion.indexOf("Win") != -1) {
-            // windowssucks.addClass("windowssucks"); // Windows
-            // windowssucks2.addClass("windowssucks"); // Windows
+// windowssucks.addClass("windowssucks"); // Windows
+// windowssucks2.addClass("windowssucks"); // Windows
         } else {
             $(".facebook_events, .satellit_main_page .team, .satellit_main_page .news, .journey, .about_press, .champions .item .text, .jobbuddystory-item .content .right, .tickets_wrapper .right, .aboutberlin .slick-slider-news").addClass("macruleslinuxokay"); // this will style body for other OS (Linux/Mac)
         }
@@ -263,14 +263,14 @@
         // mod-languages module language switch changer sprachauswahl sprache
         // Remove language text and keep flag
         // $('a.dropdown-toggle').contents()
-        //     .filter(function () {
-        //         return this.nodeType == 3; //Node.TEXT_NODE
-        //     }).remove();
+        //  .filter(function () {
+        //return this.nodeType == 3; //Node.TEXT_NODE
+        //  }).remove();
         // // Padding produces empty space so we use height instead and padding 0 x;
         // $('header .mod-languages a.dropdown-toggle').css("height", headerHeight);
         // $('.dropdown-toggle').on('click', function (e) {
-        //     $('.dropdown-menu').slideToggle();
-        //     e.preventDefault();
+        //  $('.dropdown-menu').slideToggle();
+        //  e.preventDefault();
         // });
         /**************************************************************************************************/
 
@@ -438,8 +438,8 @@
          */
 
         $('.tickets .item').on('click', function () {
-            // alert($(this).data("id"));
-            // $("#" + $(this).data("id")).slideDown();
+// alert($(this).data("id"));
+// $("#" + $(this).data("id")).slideDown();
         });
 
         /**************************************************************************************************/
@@ -455,9 +455,9 @@
         // about text readmore
         // $('.aboutberlin .fulltext').hide();
         // $('.aboutberlin .text .intro').on('click',function() {
-        //   $('.aboutberlin .text .intro, .aboutberlin .text .substr').hide();
-        //   $('.aboutberlin .fulltext').show();
-        //   $('.aboutberlin .videos_wrapper').fadeIn();
+        //$('.aboutberlin .text .intro, .aboutberlin .text .substr').hide();
+        //$('.aboutberlin .fulltext').show();
+        //$('.aboutberlin .videos_wrapper').fadeIn();
         // });
 
         // Pres review - Limit items
@@ -484,7 +484,7 @@
 
         // Team
         $('.aboutberlin .team .item').each(function () {
-            // add trigger
+// add trigger
             $('.contactinfo', this).before('<div class="trigger_contactinfo fa fa-share">');
         });
         $('.aboutberlin .team .item').on('click', function () {
@@ -518,14 +518,14 @@
         // Facebook Events
         $(function () {
 
-            // Die einzelnen Events werden gewrapped und in vergangen und aktuell eingeteilt
+// Die einzelnen Events werden gewrapped und in vergangen und aktuell eingeteilt
             $('.facebook_events .item').not('.past').wrapAll('<div class="items">');
             $('.facebook_events .past').wrapAll('<div class="items past">');
 
-            // Delay .facebook_events_wrapper because its too big and ugly to be loaded at the beginning... oO
+// Delay .facebook_events_wrapper because its too big and ugly to be loaded at the beginning... oO
             $('.facebook_events_wrapper').delay(1000).fadeIn();
 
-            // Close events Button: hide at the beginning
+// Close events Button: hide at the beginning
             $('.closeFe').hide();
             var closeFe = false;
 
@@ -534,7 +534,7 @@
         // Wenn die Seite vollständig geladen ist, schauen wir mal wie viel Platz die Events einnehmen
         $(window).load(function () {
 
-            // Und weil das nie klappt warten wir einfach noch 2 Sekunden
+// Und weil das nie klappt warten wir einfach noch 2 Sekunden
             setTimeout(function () {
                 var totalWidth = 0;
                 $('.facebook_events .items').each(function () {
@@ -553,13 +553,13 @@
                 // wenn es genügend events gibt
                 if (worthit) {
 
-                    // Next Button
+// Next Button
                     $('.facebook_events_wrapper').append('<div class="next fa fa-arrow-right"></div>');
 
-                    // Hinweis, dass es auch seit einiger Zeit möglich ist horizontal zu scrollen
+// Hinweis, dass es auch seit einiger Zeit möglich ist horizontal zu scrollen
                     var showHint = false;
 
-                    // Scroll x on mouseover & click Next Button
+// Scroll x on mouseover & click Next Button
                     $('.facebook_events_wrapper .next').on('mouseover click', function () {
                         x = (($('.facebook_events').width() / 3)) + $('.facebook_events').scrollLeft();
                         $('.facebook_events').animate({
@@ -571,7 +571,7 @@
                             $('.facebook_events_wrapper').append('<div class="hint fa fa-arrows-h"><span>' + hintText + '</span></div>');
                         }
 
-                        // Hint toggle
+// Hint toggle
                         $('.hint').slideDown();
                         setTimeout(function () {
                             $('.hint').fadeOut();
@@ -579,10 +579,10 @@
                         showHint = true;
                     });
 
-                    // Next Button ausblenden wenn das Ende der Seite erreicht wird
+// Next Button ausblenden wenn das Ende der Seite erreicht wird
                     $('.facebook_events').scroll(function () {
                         var endoftheworld = totalWidth - $(this).scrollLeft() - $(window).width() - 300;
-                        // console.log("total: " + totalWidth + " worthit: " + worthit);
+// console.log("total: " + totalWidth + " worthit: " + worthit);
 
                         if (endoftheworld <= 0) {
                             $('.facebook_events_wrapper .next').fadeOut()
@@ -606,7 +606,7 @@
             $(this).addClass('activehighlight')
             $('.facebook_events:not(.area-is-active)').addClass('area-is-active');
 
-            // Close Button anzeigen
+// Close Button anzeigen
             closeFe = true;
             if (closeFe) {
                 $('.closeFe').delay(3000).slideDown(200);
@@ -645,16 +645,16 @@
 
         // Empty Satellit
         if ($('.about_text .text').is(':empty') && !$('.news').length) {
-            // add text
+// add text
             $('.about_text .text').html("No further information provided. <br>We still #maketheworldabetterplate!").css("text-align", "center");
         } else if ($('.about_text .text').is(':empty') && $('.news').length) {
-            // make the text container disappear and prepare for socials
+// make the text container disappear and prepare for socials
             $('.about_text').css({
                 "padding": "0",
                 "justify-content": "center",
                 "align-items": "center"
             }).addClass("flex");
-            // adjust .news size
+// adjust .news size
             $('.news').css({"max-width": "none", "width": "100%"});
             if ($('.facebook_events').length) {
                 $('.satellit_main_page .hello').css({'height': $(window).height() - headerHeight - $('.facebook_events').outerHeight(true) - $('.about .headline').outerHeight(true) - $('.about .inner').outerHeight(true)});
@@ -805,8 +805,8 @@
                                       style="height: 70.7969px;"><span class="caret"></span><img id="flag"
                                                                                                  src="https://ueberdentellerrand.org/media/mod_languages/images/de.gif"></a>
                 <ul class="lang-inline dropdown-menu" dir="ltr">
-                    <li><a ><img src="https://ueberdentellerrand.org/media/mod_languages/images/en.gif"
-                                 alt=""> English (UK) </a></li>
+                    <li><a><img src="https://ueberdentellerrand.org/media/mod_languages/images/en.gif"
+                                alt=""> English (UK) </a></li>
                 </ul>
             </div>
         </div>
@@ -814,41 +814,44 @@
 </header>
 
 <style>
-    .starmain{
-        text-align:center;
-        margin-top:2%;
+    .starmain {
+        text-align: center;
+        margin-top: 2%;
         margin-bottom: 5%;
         display: flex;
         justify-content: space-around;
     }
-    .star{
-        width:30px;
-        height:30px;
+
+    .star {
+        width: 30px;
+        height: 30px;
         margin: 2px;
         -webkit-clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
         clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-        background:white;
+        background: white;
     }
-    .star-border{
+
+    .star-border {
         filter: drop-shadow(0px 0px 4px black);
-        display:inline-block;
+        display: inline-block;
     }
-    .star-border:hover{
-        cursor:pointer;
+
+    .star-border:hover {
+        cursor: pointer;
     }
 </style>
 
 <script>
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         var set;
-        $(".star-border").click(function(){
-            $(this).find(".star").css("background","#ffa836");
-            $(this).prevAll().find(".star").css("background","#ffa836");
-            $(this).nextAll().find(".star").css("background","white");
+        $(".star-border").click(function () {
+            $(this).find(".star").css("background", "#ffa836");
+            $(this).prevAll().find(".star").css("background", "#ffa836");
+            $(this).nextAll().find(".star").css("background", "white");
             set = $(this).prevAll().length + 1;
             $(this).parent().attr("style", set)
-            // alert($(this).parent().attr('id'));
+// alert($(this).parent().attr('id'));
         });
 
     });
@@ -857,12 +860,206 @@
 
 <script>
 
-    function changeLang(){
+    function changeLang() {
 
-        if ($('#flag').attr('src') == 'https://ueberdentellerrand.org/media/mod_languages/images/de.gif'){
+        if ($('#flag').attr('src') == 'https://ueberdentellerrand.org/media/mod_languages/images/de.gif') {
             $('#flag').attr('src', 'https://ueberdentellerrand.org/media/mod_languages/images/en.gif')
             $('#Q1').text('Age');
             $('#Q2').text('Nationality');
+            $('#Q2').next().html("<option value=\"\">-- select one --</option>\n" +
+                    "<option value=\"afghan\">Afghan</option>\n" +
+                    "<option value=\"albanian\">Albanian</option>\n" +
+                    "<option value=\"algerian\">Algerian</option>\n" +
+                    "<option value=\"american\">American</option>\n" +
+                    "<option value=\"andorran\">Andorran</option>\n" +
+                    "<option value=\"angolan\">Angolan</option>\n" +
+                    "<option value=\"antiguans\">Antiguans</option>\n" +
+                    "<option value=\"argentinean\">Argentinean</option>\n" +
+                    "<option value=\"armenian\">Armenian</option>\n" +
+                    "<option value=\"australian\">Australian</option>\n" +
+                    "<option value=\"austrian\">Austrian</option>\n" +
+                    "<option value=\"azerbaijani\">Azerbaijani</option>\n" +
+                    "<option value=\"bahamian\">Bahamian</option>\n" +
+                    "<option value=\"bahraini\">Bahraini</option>\n" +
+                    "<option value=\"bangladeshi\">Bangladeshi</option>\n" +
+                    "<option value=\"barbadian\">Barbadian</option>\n" +
+                    "<option value=\"barbudans\">Barbudans</option>\n" +
+                    "<option value=\"batswana\">Batswana</option>\n" +
+                    "<option value=\"belarusian\">Belarusian</option>\n" +
+                    "<option value=\"belgian\">Belgian</option>\n" +
+                    "<option value=\"belizean\">Belizean</option>\n" +
+                    "<option value=\"beninese\">Beninese</option>\n" +
+                    "<option value=\"bhutanese\">Bhutanese</option>\n" +
+                    "<option value=\"bolivian\">Bolivian</option>\n" +
+                    "<option value=\"bosnian\">Bosnian</option>\n" +
+                    "<option value=\"brazilian\">Brazilian</option>\n" +
+                    "<option value=\"british\">British</option>\n" +
+                    "<option value=\"bruneian\">Bruneian</option>\n" +
+                    "<option value=\"bulgarian\">Bulgarian</option>\n" +
+                    "<option value=\"burkinabe\">Burkinabe</option>\n" +
+                    "<option value=\"burmese\">Burmese</option>\n" +
+                    "<option value=\"burundian\">Burundian</option>\n" +
+                    "<option value=\"cambodian\">Cambodian</option>\n" +
+                    "<option value=\"cameroonian\">Cameroonian</option>\n" +
+                    "<option value=\"canadian\">Canadian</option>\n" +
+                    "<option value=\"cape verdean\">Cape Verdean</option>\n" +
+                    "<option value=\"central african\">Central African</option>\n" +
+                    "<option value=\"chadian\">Chadian</option>\n" +
+                    "<option value=\"chilean\">Chilean</option>\n" +
+                    "<option value=\"chinese\">Chinese</option>\n" +
+                    "<option value=\"colombian\">Colombian</option>\n" +
+                    "<option value=\"comoran\">Comoran</option>\n" +
+                    "<option value=\"congolese\">Congolese</option>\n" +
+                    "<option value=\"costa rican\">Costa Rican</option>\n" +
+                    "<option value=\"croatian\">Croatian</option>\n" +
+                    "<option value=\"cuban\">Cuban</option>\n" +
+                    "<option value=\"cypriot\">Cypriot</option>\n" +
+                    "<option value=\"czech\">Czech</option>\n" +
+                    "<option value=\"danish\">Danish</option>\n" +
+                    "<option value=\"djibouti\">Djibouti</option>\n" +
+                    "<option value=\"dominican\">Dominican</option>\n" +
+                    "<option value=\"dutch\">Dutch</option>\n" +
+                    "<option value=\"east timorese\">East Timorese</option>\n" +
+                    "<option value=\"ecuadorean\">Ecuadorean</option>\n" +
+                    "<option value=\"egyptian\">Egyptian</option>\n" +
+                    "<option value=\"emirian\">Emirian</option>\n" +
+                    "<option value=\"equatorial guinean\">Equatorial Guinean</option>\n" +
+                    "<option value=\"eritrean\">Eritrean</option>\n" +
+                    "<option value=\"estonian\">Estonian</option>\n" +
+                    "<option value=\"ethiopian\">Ethiopian</option>\n" +
+                    "<option value=\"fijian\">Fijian</option>\n" +
+                    "<option value=\"filipino\">Filipino</option>\n" +
+                    "<option value=\"finnish\">Finnish</option>\n" +
+                    "<option value=\"french\">French</option>\n" +
+                    "<option value=\"gabonese\">Gabonese</option>\n" +
+                    "<option value=\"gambian\">Gambian</option>\n" +
+                    "<option value=\"georgian\">Georgian</option>\n" +
+                    "<option value=\"german\">German</option>\n" +
+                    "<option value=\"ghanaian\">Ghanaian</option>\n" +
+                    "<option value=\"greek\">Greek</option>\n" +
+                    "<option value=\"grenadian\">Grenadian</option>\n" +
+                    "<option value=\"guatemalan\">Guatemalan</option>\n" +
+                    "<option value=\"guinea-bissauan\">Guinea-Bissauan</option>\n" +
+                    "<option value=\"guinean\">Guinean</option>\n" +
+                    "<option value=\"guyanese\">Guyanese</option>\n" +
+                    "<option value=\"haitian\">Haitian</option>\n" +
+                    "<option value=\"herzegovinian\">Herzegovinian</option>\n" +
+                    "<option value=\"honduran\">Honduran</option>\n" +
+                    "<option value=\"hungarian\">Hungarian</option>\n" +
+                    "<option value=\"icelander\">Icelander</option>\n" +
+                    "<option value=\"indian\">Indian</option>\n" +
+                    "<option value=\"indonesian\">Indonesian</option>\n" +
+                    "<option value=\"iranian\">Iranian</option>\n" +
+                    "<option value=\"iraqi\">Iraqi</option>\n" +
+                    "<option value=\"irish\">Irish</option>\n" +
+                    "<option value=\"israeli\">Israeli</option>\n" +
+                    "<option value=\"italian\">Italian</option>\n" +
+                    "<option value=\"ivorian\">Ivorian</option>\n" +
+                    "<option value=\"jamaican\">Jamaican</option>\n" +
+                    "<option value=\"japanese\">Japanese</option>\n" +
+                    "<option value=\"jordanian\">Jordanian</option>\n" +
+                    "<option value=\"kazakhstani\">Kazakhstani</option>\n" +
+                    "<option value=\"kenyan\">Kenyan</option>\n" +
+                    "<option value=\"kittian and nevisian\">Kittian and Nevisian</option>\n" +
+                    "<option value=\"kuwaiti\">Kuwaiti</option>\n" +
+                    "<option value=\"kyrgyz\">Kyrgyz</option>\n" +
+                    "<option value=\"laotian\">Laotian</option>\n" +
+                    "<option value=\"latvian\">Latvian</option>\n" +
+                    "<option value=\"lebanese\">Lebanese</option>\n" +
+                    "<option value=\"liberian\">Liberian</option>\n" +
+                    "<option value=\"libyan\">Libyan</option>\n" +
+                    "<option value=\"liechtensteiner\">Liechtensteiner</option>\n" +
+                    "<option value=\"lithuanian\">Lithuanian</option>\n" +
+                    "<option value=\"luxembourger\">Luxembourger</option>\n" +
+                    "<option value=\"macedonian\">Macedonian</option>\n" +
+                    "<option value=\"malagasy\">Malagasy</option>\n" +
+                    "<option value=\"malawian\">Malawian</option>\n" +
+                    "<option value=\"malaysian\">Malaysian</option>\n" +
+                    "<option value=\"maldivan\">Maldivan</option>\n" +
+                    "<option value=\"malian\">Malian</option>\n" +
+                    "<option value=\"maltese\">Maltese</option>\n" +
+                    "<option value=\"marshallese\">Marshallese</option>\n" +
+                    "<option value=\"mauritanian\">Mauritanian</option>\n" +
+                    "<option value=\"mauritian\">Mauritian</option>\n" +
+                    "<option value=\"mexican\">Mexican</option>\n" +
+                    "<option value=\"micronesian\">Micronesian</option>\n" +
+                    "<option value=\"moldovan\">Moldovan</option>\n" +
+                    "<option value=\"monacan\">Monacan</option>\n" +
+                    "<option value=\"mongolian\">Mongolian</option>\n" +
+                    "<option value=\"moroccan\">Moroccan</option>\n" +
+                    "<option value=\"mosotho\">Mosotho</option>\n" +
+                    "<option value=\"motswana\">Motswana</option>\n" +
+                    "<option value=\"mozambican\">Mozambican</option>\n" +
+                    "<option value=\"namibian\">Namibian</option>\n" +
+                    "<option value=\"nauruan\">Nauruan</option>\n" +
+                    "<option value=\"nepalese\">Nepalese</option>\n" +
+                    "<option value=\"new zealander\">New Zealander</option>\n" +
+                    "<option value=\"ni-vanuatu\">Ni-Vanuatu</option>\n" +
+                    "<option value=\"nicaraguan\">Nicaraguan</option>\n" +
+                    "<option value=\"nigerien\">Nigerien</option>\n" +
+                    "<option value=\"north korean\">North Korean</option>\n" +
+                    "<option value=\"northern irish\">Northern Irish</option>\n" +
+                    "<option value=\"norwegian\">Norwegian</option>\n" +
+                    "<option value=\"omani\">Omani</option>\n" +
+                    "<option value=\"pakistani\">Pakistani</option>\n" +
+                    "<option value=\"palauan\">Palauan</option>\n" +
+                    "<option value=\"panamanian\">Panamanian</option>\n" +
+                    "<option value=\"papua new guinean\">Papua New Guinean</option>\n" +
+                    "<option value=\"paraguayan\">Paraguayan</option>\n" +
+                    "<option value=\"peruvian\">Peruvian</option>\n" +
+                    "<option value=\"polish\">Polish</option>\n" +
+                    "<option value=\"portuguese\">Portuguese</option>\n" +
+                    "<option value=\"qatari\">Qatari</option>\n" +
+                    "<option value=\"romanian\">Romanian</option>\n" +
+                    "<option value=\"russian\">Russian</option>\n" +
+                    "<option value=\"rwandan\">Rwandan</option>\n" +
+                    "<option value=\"saint lucian\">Saint Lucian</option>\n" +
+                    "<option value=\"salvadoran\">Salvadoran</option>\n" +
+                    "<option value=\"samoan\">Samoan</option>\n" +
+                    "<option value=\"san marinese\">San Marinese</option>\n" +
+                    "<option value=\"sao tomean\">Sao Tomean</option>\n" +
+                    "<option value=\"saudi\">Saudi</option>\n" +
+                    "<option value=\"scottish\">Scottish</option>\n" +
+                    "<option value=\"senegalese\">Senegalese</option>\n" +
+                    "<option value=\"serbian\">Serbian</option>\n" +
+                    "<option value=\"seychellois\">Seychellois</option>\n" +
+                    "<option value=\"sierra leonean\">Sierra Leonean</option>\n" +
+                    "<option value=\"singaporean\">Singaporean</option>\n" +
+                    "<option value=\"slovakian\">Slovakian</option>\n" +
+                    "<option value=\"slovenian\">Slovenian</option>\n" +
+                    "<option value=\"solomon islander\">Solomon Islander</option>\n" +
+                    "<option value=\"somali\">Somali</option>\n" +
+                    "<option value=\"south african\">South African</option>\n" +
+                    "<option value=\"south korean\">South Korean</option>\n" +
+                    "<option value=\"spanish\">Spanish</option>\n" +
+                    "<option value=\"sri lankan\">Sri Lankan</option>\n" +
+                    "<option value=\"sudanese\">Sudanese</option>\n" +
+                    "<option value=\"surinamer\">Surinamer</option>\n" +
+                    "<option value=\"swazi\">Swazi</option>\n" +
+                    "<option value=\"swedish\">Swedish</option>\n" +
+                    "<option value=\"swiss\">Swiss</option>\n" +
+                    "<option value=\"syrian\">Syrian</option>\n" +
+                    "<option value=\"taiwanese\">Taiwanese</option>\n" +
+                    "<option value=\"tajik\">Tajik</option>\n" +
+                    "<option value=\"tanzanian\">Tanzanian</option>\n" +
+                    "<option value=\"thai\">Thai</option>\n" +
+                    "<option value=\"togolese\">Togolese</option>\n" +
+                    "<option value=\"tongan\">Tongan</option>\n" +
+                    "<option value=\"trinidadian or tobagonian\">Trinidadian or Tobagonian</option>\n" +
+                    "<option value=\"tunisian\">Tunisian</option>\n" +
+                    "<option value=\"turkish\">Turkish</option>\n" +
+                    "<option value=\"tuvaluan\">Tuvaluan</option>\n" +
+                    "<option value=\"ugandan\">Ugandan</option>\n" +
+                    "<option value=\"ukrainian\">Ukrainian</option>\n" +
+                    "<option value=\"uruguayan\">Uruguayan</option>\n" +
+                    "<option value=\"uzbekistani\">Uzbekistani</option>\n" +
+                    "<option value=\"venezuelan\">Venezuelan</option>\n" +
+                    "<option value=\"vietnamese\">Vietnamese</option>\n" +
+                    "<option value=\"welsh\">Welsh</option>\n" +
+                    "<option value=\"yemenite\">Yemenite</option>\n" +
+                    "<option value=\"zambian\">Zambian</option>\n" +
+                    "<option value=\"zimbabwean\">Zimbabwean</option>")
+
             $('#Q4').text('How would you rate your overall experience?');
             $('#Q5').text('How did you hear about Über den Tellerrand?');
             $('#Q5O1').text('Family/Friends');
@@ -870,27 +1067,27 @@
             $('#Q5O3').text('Job');
             $('#Q5O4').text('Internet');
             $('#Q5O5').text('Other');
-            $('#Q5Other').attr("placeholder",'Where did you hear about us?');
+            $('#Q5Other').attr("placeholder", 'Where did you hear about us?');
             $('#Q6').text('Have you participated in any other integration programs?');
             $('#Q6Other').attr('placeholder', 'What was it called?');
             $('#Q6Q1').text('Über den Tellerrand Community Programs');
             $('#Q6Q2').text('Other');
             $('#Q6Q3').text('None');
-            // $('#Q7').text('Über den Tellerrand has many programs outside of cooking, would you be interested in attending those?');
-            // $('#Q7Q1').text('Yes');
-            // $('#Q7Q2').text('No');
-            // $('#Q7Q3').text('Possibly');
+// $('#Q7').text('Über den Tellerrand has many programs outside of cooking, would you be interested in attending those?');
+// $('#Q7Q1').text('Yes');
+// $('#Q7Q2').text('No');
+// $('#Q7Q3').text('Possibly');
             $('#Q8').text('How important are the following aspects of the class to you');
             $('#Q8Q1').text('Learning to cook an ethnic meal');
             $('#Q8Q2').text('Interested in multiculturalism');
             $('#Q8Q3').text('Helping with refugee integration');
             $('#Q8Q4').text('Enjoying an interactive event with friends/family');
-            // $('#Q9').text('How well did the program meet your expectations?');
-            // $('#Q10').text('If not, what would you change?');
+// $('#Q9').text('How well did the program meet your expectations?');
+// $('#Q10').text('If not, what would you change?');
             $('#Q11').text('How did you like the presentations?');
-            // $('#Q12').text('If you did not enjoy them, why not?');
+// $('#Q12').text('If you did not enjoy them, why not?');
             $('#Q13').text('What, if anything, did you learn besides cooking?');
-            // $('#Q14').text('How well do you believe this class helps in achieving an open and tolerant society?');
+// $('#Q14').text('How well do you believe this class helps in achieving an open and tolerant society?');
 
             $('#Q14').text('How do you think that a cooking class can counteract prejudices against refugees?');
             $('#Q14Q1').text('Having an encounter space for people to meet');
@@ -901,10 +1098,204 @@
 
             $('#Q16').text('What are your suggestions on improving the program, if any?');
         }
-        else{
+        else {
             $('#flag').attr('src', 'https://ueberdentellerrand.org/media/mod_languages/images/de.gif')
             $('#Q1').text('Alter');
             $('#Q2').text('Nationalität');
+            $('#Q2').next().html('<option value="">-- wählen Sie einen aus --</option>\n' +
+                    '                <option value="german"> Deutsch</option>\n' +
+                    '                <option value="swiss"> Schweizerisch</option>\n' +
+                    '                <option value="syrian"> Syrisch</option>\n' +
+                    '                <option value="afghan"> Afghanisch</option>\n' +
+                    '\n' +
+                    '                <option value="albanian">Albanisch</option>\n' +
+                    '                <option value="algerian">Algerier</option>\n' +
+                    '                <option value="american">Amerikanisch</option>\n' +
+                    '                <option value="andorran">Andorran</option>\n' +
+                    '                <option value="angolan">Angolanisch</option>\n' +
+                    '                <option value="antiguans">Antiguans</option>\n' +
+                    '                <option value="argentinean">Argentinisch</option>\n' +
+                    '                <option value="armenian">Armenisch</option>\n' +
+                    '                <option value="australian">Australisch</option>\n' +
+                    '                <option value="austrian">Österreichisch</option>\n' +
+                    '                <option value="azerbaijani">Aserbaidschanisch</option>\n' +
+                    '                <option value="bahamian">Bahama</option>\n' +
+                    '                <option value="bahraini">Bahraini</option>\n' +
+                    '                <option value="bangladeshi">Bangladeshi</option>\n' +
+                    '                <option value="barbadian">Barbadian</option>\n' +
+                    '                <option value="barbudans">Barbudans</option>\n' +
+                    '                <option value="batswana">Batswana</option>\n' +
+                    '                <option value="belarusian">Weißrussisch</option>\n' +
+                    '                <option value="belgian">Belgisch</option>\n' +
+                    '                <option value="belizean">Belize</option>\n' +
+                    '                <option value="beninese">Beninese</option>\n' +
+                    '                <option value="bhutanese">Bhutanese</option>\n' +
+                    '                <option value="bolivian">Bolivianisch</option>\n' +
+                    '                <option value="bosnian">Bosnisch</option>\n' +
+                    '                <option value="brazilian">Brasilianisch</option>\n' +
+                    '                <option value="british">Britisch</option>\n' +
+                    '                <option value="bruneian">Bruneian</option>\n' +
+                    '                <option value="bulgarian">Bulgarisch</option>\n' +
+                    '                <option value="burkinabe">Burkinabe</option>\n' +
+                    '                <option value="burmese">Birmanisch</option>\n' +
+                    '                <option value="burundian">Burundian</option>\n' +
+                    '                <option value="cambodian">Kambodschanisch</option>\n' +
+                    '                <option value="cameroonian">Kameruner</option>\n' +
+                    '                <option value="canadian">Kanadisch</option>\n' +
+                    '                <option value="cape verdean">Kap Verdean</option>\n' +
+                    '                <option value="central african">Zentralafrika </option>\n' +
+                    '                <option value="chadian">Chadian</option>\n' +
+                    '                <option value="chilean">Chilenisch</option>\n' +
+                    '                <option value="chinese">Chinesisch</option>\n' +
+                    '                <option value="colombian">Kolumbianisch</option>\n' +
+                    '                <option value="comoran">Comoran</option>\n' +
+                    '                <option value="congolese">Kongolesisch</option>\n' +
+                    '                <option value="costa rican">Costa Ricanisch</option>\n' +
+                    '                <option value="croatian">Kroatisch</option>\n' +
+                    '                <option value="cuban">Kubanisch</option>\n' +
+                    '                <option value="cypriot">Zypriotisch</option>\n' +
+                    '                <option value="czech">Tschechisch</option>\n' +
+                    '                <option value="danish">Dänisch</option>\n' +
+                    '                <option value="djibouti">Djibouti</option>\n' +
+                    '                <option value="dominican">Dominikaner</option>\n' +
+                    '                <option value="dutch">Niederländisch</option>\n' +
+                    '                <option value="east timorese"> Osttimorese</option>\n' +
+                    '                <option value="ecuadorean">Ecuadorianisch</option>\n' +
+                    '                <option value="egyptian">Ägyptisch</option>\n' +
+                    '                <option value="emirian">Emirian</option>\n' +
+                    '                <option value="equatorial guinean">Äquatorial Guinean</option>\n' +
+                    '                <option value="eritrean">Eritrean</option>\n' +
+                    '                <option value="estonian">Estnisch</option>\n' +
+                    '                <option value="ethiopian">Äthiopisch</option>\n' +
+                    '                <option value="fijian">Fijian</option>\n' +
+                    '                <option value="filipino">Filipino</option>\n' +
+                    '                <option value="finnish">Finnisch</option>\n' +
+                    '                <option value="french">Französisch</option>\n' +
+                    '                <option value="gabonese">Gabunisch</option>\n' +
+                    '                <option value="gambian">Gambian</option>\n' +
+                    '                <option value="georgian">Georgisch</option>\n' +
+                    '                <option value="ghanaian">Ghanaisch</option>\n' +
+                    '                <option value="greek">Griechisch</option>\n' +
+                    '                <option value="grenadian">Grenadian</option>\n' +
+                    '                <option value="guatemalan">Guatemaltekisch</option>\n' +
+                    '                <option value="guinea-bissauan">Guinea-Bissauan</option>\n' +
+                    '                <option value="guinean">Guinean</option>\n' +
+                    '                <option value="guyanese">Guyanese</option>\n' +
+                    '                <option value="haitian">Haitianisch</option>\n' +
+                    '                <option value="herzegovinian">Herzegovinian</option>\n' +
+                    '                <option value="honduran">Honduranisch</option>\n' +
+                    '                <option value="hungarian">Ungarisch</option>\n' +
+                    '                <option value="icelander">Icelander</option>\n' +
+                    '                <option value="indian">Indianer</option>\n' +
+                    '                <option value="indonesian">Indonesisch</option>\n' +
+                    '                <option value="iranian">Iraner</option>\n' +
+                    '                <option value="iraqi">Iraker</option>\n' +
+                    '                <option value="irish">Irisch</option>\n' +
+                    '                <option value="israeli">Israelisch</option>\n' +
+                    '                <option value="italian">Italienisch</option>\n' +
+                    '                <option value="ivorian">Ivorian</option>\n' +
+                    '                <option value="jamaican">Jamaikanisch</option>\n' +
+                    '                <option value="japanese">Japanisch</option>\n' +
+                    '                <option value="jordanian">Jordanisch</option>\n' +
+                    '                <option value="kazakhstani">Kasachstan</option>\n' +
+                    '                <option value="kenyan">Kenianisch</option>\n' +
+                    '                <option value="kittian and nevisian">Kittian und Nevisian</option>\n' +
+                    '                <option value="kuwaiti">Kirgisisch</option>\n' +
+                    '                <option value="kyrgyz">Kyrgyz</option>\n' +
+                    '                <option value="laotian">Laotisch</option>\n' +
+                    '                <option value="latvian">Lettisch</option>\n' +
+                    '                <option value="lebanese">Libanesisch</option>\n' +
+                    '                <option value="liberian">Liberianer</option>\n' +
+                    '                <option value="libyan">Libyen</option>\n' +
+                    '                <option value="liechtensteiner">Liechtensteiner</option>\n' +
+                    '                <option value="lithuanian">Litauisch</option>\n' +
+                    '                <option value="luxembourger">Luxembourger</option>\n' +
+                    '                <option value="macedonian">Mazedonisch</option>\n' +
+                    '                <option value="malagasy">Madagassisch</option>\n' +
+                    '                <option value="malawian">Malawian</option>\n' +
+                    '                <option value="malaysian">Malaysian</option>\n' +
+                    '                <option value="maldivan">Maledivan</option>\n' +
+                    '                <option value="malian">Malian</option>\n' +
+                    '                <option value="maltese">Maltesisch</option>\n' +
+                    '                <option value="marshallese">Marshallese</option>\n' +
+                    '                <option value="mauritanian">Mauretanisch</option>\n' +
+                    '                <option value="mauritian">Mauritianisch</option>\n' +
+                    '                <option value="mexican">Mexikanisch</option>\n' +
+                    '                <option value="micronesian">Mikronesisch</option>\n' +
+                    '                <option value="moldovan">Moldovan</option>\n' +
+                    '                <option value="monacan">Monacan</option>\n' +
+                    '                <option value="mongolian">Mongolian</option>\n' +
+                    '                <option value="moroccan">Marokkanisch</option>\n' +
+                    '                <option value="mosotho">Mosotho</option>\n' +
+                    '                <option value="motswana">Motswana</option>\n' +
+                    '                <option value="mozambican">Mozambican</option>\n' +
+                    '                <option value="namibian">Namibian</option>\n' +
+                    '                <option value="nauruan">Nauruan</option>\n' +
+                    '                <option value="nepalese">Nepalesisch</option>\n' +
+                    '                <option value="new zealander">Neuseeländer</option>\n' +
+                    '                <option value="ni-vanuatu">Ni-Vanuatu</option>\n' +
+                    '                <option value="nicaraguan">Nicaraguanisch</option>\n' +
+                    '                <option value="nigerien">Nigerien</option>\n' +
+                    '                <option value="north korean">Nordkoreanisch</option>\n' +
+                    '                <option value="northern irish">Nordirisch</option>\n' +
+                    '                <option value="norwegian">Norwegisch</option>\n' +
+                    '                <option value="omani">Omani</option>\n' +
+                    '                <option value="pakistani">Pakistaner</option>\n' +
+                    '                <option value="palauan">Palauan</option>\n' +
+                    '                <option value="panamanian">Panamanian</option>\n' +
+                    '                <option value="papua new guinean">Papua-Neuguinea</option>\n' +
+                    '                <option value="paraguayan">Paraguayan</option>\n' +
+                    '                <option value="peruvian">Peruanisch</option>\n' +
+                    '                <option value="polish">Polnisch</option>\n' +
+                    '                <option value="portuguese">Portugiesisch</option>\n' +
+                    '                <option value="qatari">Katar</option>\n' +
+                    '                <option value="romanian">Rumänisch</option>\n' +
+                    '                <option value="russian">Russisch</option>\n' +
+                    '                <option value="rwandan">Ruanda</option>\n' +
+                    '                <option value="saint lucian">St. Lucian</option>\n' +
+                    '                <option value="salvadoran">Salvadorianisch</option>\n' +
+                    '                <option value="samoan">Samoanisch</option>\n' +
+                    '                <option value="san marinese">San Marinese</option>\n' +
+                    '                <option value="sao tomean">Sao Tomean</option>\n' +
+                    '                <option value="saudi">Saudi</option>\n' +
+                    '                <option value="scottish">Schottisch</option>\n' +
+                    '                <option value="senegalese">Senegalese</option>\n' +
+                    '                <option value="serbian">Serbisch</option>\n' +
+                    '                <option value="seychellois">Seychellois</option>\n' +
+                    '                <option value="sierra leonean">Sierra Leonean</option>\n' +
+                    '                <option value="singaporean">Singapurisch</option>\n' +
+                    '                <option value="slovakian">Slowakisch</option>\n' +
+                    '                <option value="slovenian">Slowenisch</option>\n' +
+                    '                <option value="solomon islander">Solomon Islander</option>\n' +
+                    '                <option value="somali">Somali</option>\n' +
+                    '                <option value="south african">Südafrikanisch</option>\n' +
+                    '                <option value="south korean">Südkoreanisch</option>\n' +
+                    '                <option value="spanish">Spanisch</option>\n' +
+                    '                <option value="sri lankan">Sri Lankan</option>\n' +
+                    '                <option value="sudanese">Sudanese</option>\n' +
+                    '                <option value="surinamer">Surinamer</option>\n' +
+                    '                <option value="swazi">Swazi</option>\n' +
+                    '                <option value="swedish">Schwedisch</option>\n' +
+                    '                <option value="taiwanese">Taiwanesisch</option>\n' +
+                    '                <option value="tajik">Tadschikisch</option>\n' +
+                    '                <option value="tanzanian">Tansanisch</option>\n' +
+                    '                <option value="thai">Thai</option>\n' +
+                    '                <option value="togolese">Togolese</option>\n' +
+                    '                <option value="tongan">Tonganisch</option>\n' +
+                    '                <option value="trinidadian or tobagonian">Trinidad oder Tobagonian</option>\n' +
+                    '                <option value="tunisian">Tunesisch</option>\n' +
+                    '                <option value="turkish">Türkisch</option>\n' +
+                    '                <option value="tuvaluan">Tuvaluan</option>\n' +
+                    '                <option value="ugandan">Ugandan</option>\n' +
+                    '                <option value="ukrainian">Ukrainisch</option>\n' +
+                    '                <option value="uruguayan">uruguayisch</option>\n' +
+                    '                <option value="uzbekistani">Usbekisch</option>\n' +
+                    '                <option value="venezuelan">Venezolanisch</option>\n' +
+                    '                <option value="vietnamese">Vietnamesisch</option>\n' +
+                    '                <option value="welsh">Walisisch</option>\n' +
+                    '                <option value="yemenite">Jemenitisch</option>\n' +
+                    '                <option value="zambian">Sambian</option>\n' +
+                    '                <option value="zimbabwean">Simbabwisch</option>')
             $('#Q3').text('Wie würdest Du dein Gesamterlebnis bewerten?');
             $('#Q4').text('Wie wahrscheinlich ist es, dass Du unsere Kochkurse weiterempfiehlst?');
             $('#Q5').text('Wie hast Du von Über den Tellerrand erfahren?');
@@ -913,28 +1304,28 @@
             $('#Q5O3').text('Arbeit');
             $('#Q5O4').text('Internet');
             $('#Q5O5').text('Sonstiges');
-            $('#Q5Other').attr('placeholder','Wie hast Du erfahren?');
+            $('#Q5Other').attr('placeholder', 'Wie hast Du erfahren?');
             $('#Q6').text('Hast Du bereits an anderen Begegnungsprojekten teilgenommen?');
-            $('#Q6Other').attr('placeholder','Wie heisst es/sie?');
+            $('#Q6Other').attr('placeholder', 'Wie heisst es/sie?');
             $('#Q6Q1').text('Weitere Über den Tellerrand Veranstaltungen:');
             $('#Q6Q2').text('Andere');
             $('#Q6Q3').text('Kein');
-            // $('#Q7').text('Bei Über den Tellerrand gibt es nicht nur Kochkurse - hättest Du Interesse, an anderen Veranstaltungen teilzunehmen?');
-            // $('#Q7Q1').text('Ja');
-            // $('#Q7Q2').text('Nein');
-            // $('#Q7Q3').text('Vielleicht');
+// $('#Q7').text('Bei Über den Tellerrand gibt es nicht nur Kochkurse - hättest Du Interesse, an anderen Veranstaltungen teilzunehmen?');
+// $('#Q7Q1').text('Ja');
+// $('#Q7Q2').text('Nein');
+// $('#Q7Q3').text('Vielleicht');
             $('#Q8').text('Wie wichtig sind Dir die folgenden Komponenten des Kochkurses auf einer Skala von 1 (nicht wichtig)\n' +
-                    '            bis 7 (sehr wichtig)');
+                    'bis 7 (sehr wichtig)');
             $('#Q8Q1').text('Ein neues Gericht kochen lernen');
             $('#Q8Q2').text('Einblick in eine neue Kultur bekommen');
             $('#Q8Q3').text('Beitrag zu Integration leisten');
             $('#Q8Q4').text('Einen schönen Abend mit Freunden/Familie genießen');
-            // $('#Q9').text('Hat der Kochkurs Deine Erwartungen erfüllt?');
-            // $('#Q10').text('Wenn nein, warum nicht?');
+// $('#Q9').text('Hat der Kochkurs Deine Erwartungen erfüllt?');
+// $('#Q10').text('Wenn nein, warum nicht?');
             $('#Q11').text('Wie haben Dir die Präsentationen gefallen?');
-            // $('#Q12').text('Wenn sie Dir nicht gefallen haben, warum nicht?');
+// $('#Q12').text('Wenn sie Dir nicht gefallen haben, warum nicht?');
             $('#Q13').text('Was hast Du neben dem Kochen neues gelernt?');
-            // $('#Q14').text('Inwiefern glaubst Du, dass dieser Kochkurs zu einer offenen und toleranten Gesellschaft beitragen kann?');
+// $('#Q14').text('Inwiefern glaubst Du, dass dieser Kochkurs zu einer offenen und toleranten Gesellschaft beitragen kann?');
             $('#Q14').text('Wie glaubst Du, dass durch einen Kochkurs eventuellen Vorurteilen gegenüber Menschen mit Fluchterfahrung entgegengewirkt werden kann?');
             $('#Q14Q1').text('Begegnungsräume zu haben um Leute zu treffen');
             $('#Q14Q2').text('Gemeinsamkeiten entdecken');
@@ -944,29 +1335,33 @@
         }
     }
 
-    function setInterest(obj){
+    function changeNationality(val) {
+        $('#Q2').attr('name', val)
+    }
+
+    function setInterest(obj) {
         var x = $(obj).attr('id')
         var ans
-        if(x == 'radio-1')
+        if (x == 'radio-1')
             ans = $('#Q7Q1').text()
-        if(x == 'radio-2')
+        if (x == 'radio-2')
             ans = $('#Q7Q2').text()
-        if(x == 'radio-3')
+        if (x == 'radio-3')
             ans = $('#Q7Q3').text()
         $('#Q7Answer').attr('id', ans)
 
     }
 
-    function changeFunc(i){
+    function changeFunc(i) {
         if (i == 5)
             document.getElementById("Q5Other").style.display = "block"
         else
             document.getElementById("Q5Other").style.display = "none"
     }
 
-    function changeSet(obj){
+    function changeSet(obj) {
         prt = $(obj).parent().attr('id');
-        if (prt =='set')
+        if (prt == 'set')
             $(obj).parent().attr('id', '');
         else
             $(obj).parent().attr('id', 'set');
@@ -982,8 +1377,7 @@
     }
 
 
-
-    $(function(){
+    $(function () {
 
         //Create variables we will be referencing in our tweens.
         var white = 'rgb(255,255,255)';
@@ -996,16 +1390,16 @@
         //These are the button attributes which we will be tweening
         //This will be used with GSAP and the function below to tween
         var buttonProps = {
-            buttonWidth : $buttonShapes.attr('width'),
-            buttonX : $buttonShapes.attr('x'),
-            buttonY : $buttonShapes.attr('y'),
-            textScale : 1,
-            textX : $buttonText.attr('x'),
-            textY : $buttonText.attr('y')
+            buttonWidth: $buttonShapes.attr('width'),
+            buttonX: $buttonShapes.attr('x'),
+            buttonY: $buttonShapes.attr('y'),
+            textScale: 1,
+            textX: $buttonText.attr('x'),
+            textY: $buttonText.attr('y')
         };
 
         //This is the update handler that lets us tween attributes
-        function onUpdateHandler(){
+        function onUpdateHandler() {
             $buttonShapes.attr('width', buttonProps.buttonWidth);
             $buttonShapes.attr('x', buttonProps.buttonX);
             $buttonShapes.attr('y', buttonProps.buttonY);
@@ -1016,72 +1410,72 @@
 
         //Finally, create the timelines
         var hover_tl = new TimelineMax({
-            tweens:[
-                TweenMax.to( $buttonText, .15, { fill:white } ),
-                TweenMax.to( $buttonShapes, .25, { fill: seafoam })
+            tweens: [
+                TweenMax.to($buttonText, .15, {fill: white}),
+                TweenMax.to($buttonShapes, .25, {fill: seafoam})
             ]
         });
         hover_tl.stop();
 
-        var tl = new TimelineMax({onComplete:bind_mouseenter});
+        var tl = new TimelineMax({onComplete: bind_mouseenter});
         //This is the initial transition, from [submit] to the circle
-        tl.append( new TimelineMax({
-            align:"start",
-            tweens:[
-                TweenMax.to( $buttonText, .15, { fillOpacity:0 } ),
-                TweenMax.to( buttonProps, .25, { buttonX: (190-64)/2, buttonWidth:64, onUpdate:onUpdateHandler } ),
-                TweenMax.to( $buttonShapes, .25, { fill: white })
+        tl.append(new TimelineMax({
+            align: "start",
+            tweens: [
+                TweenMax.to($buttonText, .15, {fillOpacity: 0}),
+                TweenMax.to(buttonProps, .25, {buttonX: (190 - 64) / 2, buttonWidth: 64, onUpdate: onUpdateHandler}),
+                TweenMax.to($buttonShapes, .25, {fill: white})
             ],
-            onComplete:function(){
+            onComplete: function () {
                 $buttonColorShape.css({
-                    'strokeDasharray':202,
-                    'strokeDashoffset':202
+                    'strokeDasharray': 202,
+                    'strokeDashoffset': 202
                 });
             }
-        }) );
+        }));
 
         //The loading dasharray offset animation…
         tl.append(TweenMax.to($buttonColorShape, 1.2, {
-            strokeDashoffset:0,
-            ease:Quad.easeIn,
-            onComplete:function(){
+            strokeDashoffset: 0,
+            ease: Quad.easeIn,
+            onComplete: function () {
                 //Reset these values to their defaults.
                 $buttonColorShape.css({
-                    'strokeDasharray':453,
-                    'strokeDashoffset':0
+                    'strokeDasharray': 453,
+                    'strokeDashoffset': 0
                 });
             }
         }));
 
         //The Finish - transition to check
         tl.append(new TimelineMax({
-            align:"start",
-            tweens:[
-                TweenMax.to($buttonShapes, .3, {fill:seafoam}),
-                TweenMax.to( $buttonCheck, .15, { fillOpacity:1 } ),
-                TweenMax.to( buttonProps, .25, { buttonX: 3, buttonWidth:190, onUpdate:onUpdateHandler } )
+            align: "start",
+            tweens: [
+                TweenMax.to($buttonShapes, .3, {fill: seafoam}),
+                TweenMax.to($buttonCheck, .15, {fillOpacity: 1}),
+                TweenMax.to(buttonProps, .25, {buttonX: 3, buttonWidth: 190, onUpdate: onUpdateHandler})
             ]
         }));
 
         //The Reset - back to the beginning
         //For demo only - probably you would want to remove this.
-        tl.append(TweenMax.to($buttonCheck, .1, {delay:10000,fillOpacity:0}));
+        tl.append(TweenMax.to($buttonCheck, .1, {delay: 10000, fillOpacity: 0}));
 
         tl.append(new TimelineMax({
-            align:"start",
-            tweens:[
-                TweenMax.to($buttonShapes, .3, {fill:white}),
-                TweenMax.to($buttonText, .3, {fill:seafoam, fillOpacity:1})
+            align: "start",
+            tweens: [
+                TweenMax.to($buttonShapes, .3, {fill: white}),
+                TweenMax.to($buttonText, .3, {fill: seafoam, fillOpacity: 1})
             ],
-            onComplete:function() {
+            onComplete: function () {
                 $('.colins-submit').removeClass('is-active');
             }
         }));
         tl.stop();
 
         //-- On Click, we launch into the cool transition
-        $('.colins-submit').on('click', function(e) {
-            //-- Add this class to indicate state
+        $('.colins-submit').on('click', function (e) {
+//-- Add this class to indicate state
             $(e.currentTarget).addClass('is-active');
             tl.restart();
             $('.colins-submit').off('mouseenter');
@@ -1094,9 +1488,11 @@
             else
                 lang = 'EN'
             var age = $('#Q1A').val();
-            var nationaltiy= $('#Q2A').val();
+            var nationaltiy = $('#Q2').attr('name')
             var xprc = $('#Q4A').attr('style');
-            var hear = $('#soflow').children("option:selected").val()
+            if (xprc == null)
+                xprc = ''
+            var hear = $('#soflow').children("option:selected").attr('name')
             if (hear < 5)
                 hear = $('#soflow').children("option:selected").text()
             else
@@ -1154,7 +1550,7 @@
                 'how_heard': hear,
                 'been_to_UdT_before': part1,
                 'been_to_other': part2,
-                'no_integration_participate' : part3,
+                'no_integration_participate': part3,
                 'rate_cooking': rate1,
                 'rate_multiculural': rate2,
                 'rate_refugee_integration': rate3,
@@ -1174,26 +1570,30 @@
                 url: url,
                 method: "GET",
                 dataType: "json",
-                data: formData
-            }).success(
-                    setTimeout(function(){
+                data: formData,
+                success: function success() {
+                    setTimeout(function () {
                         window.location = "https://ueberdentellerrand.org/";
-                    },2000)
-            );
+                    }, 2000)
+                }
+
+            })
+
 
         });
 
         bind_mouseenter();
 
         function bind_mouseenter() {
-            $('.colins-submit').on('mouseenter', function(e) {
+            $('.colins-submit').on('mouseenter', function (e) {
                 hover_tl.restart();
                 $('.colins-submit').off('mouseenter');
                 bind_mouseleave();
             });
         }
+
         function bind_mouseleave() {
-            $('.colins-submit').on('mouseleave', function(e) {
+            $('.colins-submit').on('mouseleave', function (e) {
                 hover_tl.reverse();
                 $('.colins-submit').off('mouseleave');
                 bind_mouseenter();
@@ -1215,12 +1615,25 @@
     }
 
     /* -------------------- Colors: Text */
-    .slate select   { color: #000; }
-    .green select   { color: #fff; }
-    .blue select    { color: #fff; }
-    .yellow select  { color: #000; }
-    .black select   { color: #fff; }
+    .slate select {
+        color: #000;
+    }
 
+    .green select {
+        color: #fff;
+    }
+
+    .blue select {
+        color: #fff;
+    }
+
+    .yellow select {
+        color: #000;
+    }
+
+    .black select {
+        color: #fff;
+    }
 
     /* -------------------- Select Box Styles: danielneumann.com Method */
     /* -------------------- Source: http://danielneumann.com/blog/how-to-style-dropdown-with-css-only/ */
@@ -1236,8 +1649,6 @@
         *background: #ffa836;
         -webkit-appearance: none;
     }
-
-
 
     /* -------------------- Select Box Styles: stackoverflow.com Method */
     /* -------------------- Source: http://stackoverflow.com/a/5809186 */
@@ -1262,9 +1673,7 @@
         width: 300px;
     }
 
-
     /* only demo styles */
-
 
     /* end only demo styles */
 
@@ -1311,7 +1720,6 @@
         box-shadow: inset 0px 0px 0px 4px #fff;
     }
 
-
     .checkbox-custom:focus + .checkbox-custom-label, .radio-custom:focus + .radio-custom-label {
         outline: 1px solid #ddd; /* focus style */
     }
@@ -1325,28 +1733,36 @@
         background: transparent;
         border: none;
     }
+
     button.colins-submit.is-active {
         cursor: default;
     }
+
     button.colins-submit:focus {
         outline: none;
     }
+
     button.colins-submit::-moz-focus-inner {
         border: 0;
     }
+
     button.colins-submit svg text {
         font-family: 'Montserrat', sans-serif;
     }
+
     button.colins-submit svg text.textNode {
         fill: #ffa836;
     }
+
     button.colins-submit svg text.checkNode {
         fill-opacity: 0;
     }
+
     button.colins-submit svg rect.btn-shape.btn-bg {
         stroke: #c8c8c8;
         fill: white;
     }
+
     button.colins-submit svg rect.btn-shape.btn-color {
         stroke: #ffa836;
         fill: white;
@@ -1362,7 +1778,6 @@
     }
 
 
-
 </style>
 
 <div class="container2">
@@ -1372,41 +1787,259 @@
         <fieldset>
             <input id="Q1A" placeholder="42" type="tel" tabindex="1" autofocus=""></fieldset>
         <h4 id="Q2" style="font-weight: bold">Nationalität</h4>
-        <fieldset><input id="Q2A" placeholder="DE/SY/AF/EN/..." type="email" tabindex="2"></fieldset>
+        <!--<fieldset><input id="" placeholder="DE/SY/AF/EN/..." type="email" tabindex="2"></fieldset>-->
 
-        <h4 id="Q4" style="font-weight: bold">Wie wahrscheinlich ist es, dass Du unsere Kochkurse weiterempfiehlst? </h4>
+        <select name="Nationality" id="soflow" onchange="changeNationality(value)">
+                <option value="">-- wählen Sie einen aus --</option>
+                <option value="german"> Deutsch</option>
+                <option value="swiss"> Schweizerisch</option>
+                <option value="syrian"> Syrisch</option>
+                <option value="afghan"> Afghanisch</option>
+
+                <option value="albanian">Albanisch</option>
+                <option value="algerian">Algerier</option>
+                <option value="american">Amerikanisch</option>
+                <option value="andorran">Andorran</option>
+                <option value="angolan">Angolanisch</option>
+                <option value="antiguans">Antiguans</option>
+                <option value="argentinean">Argentinisch</option>
+                <option value="armenian">Armenisch</option>
+                <option value="australian">Australisch</option>
+                <option value="austrian">Österreichisch</option>
+                <option value="azerbaijani">Aserbaidschanisch</option>
+                <option value="bahamian">Bahama</option>
+                <option value="bahraini">Bahraini</option>
+                <option value="bangladeshi">Bangladeshi</option>
+                <option value="barbadian">Barbadian</option>
+                <option value="barbudans">Barbudans</option>
+                <option value="batswana">Batswana</option>
+                <option value="belarusian">Weißrussisch</option>
+                <option value="belgian">Belgisch</option>
+                <option value="belizean">Belize</option>
+                <option value="beninese">Beninese</option>
+                <option value="bhutanese">Bhutanese</option>
+                <option value="bolivian">Bolivianisch</option>
+                <option value="bosnian">Bosnisch</option>
+                <option value="brazilian">Brasilianisch</option>
+                <option value="british">Britisch</option>
+                <option value="bruneian">Bruneian</option>
+                <option value="bulgarian">Bulgarisch</option>
+                <option value="burkinabe">Burkinabe</option>
+                <option value="burmese">Birmanisch</option>
+                <option value="burundian">Burundian</option>
+                <option value="cambodian">Kambodschanisch</option>
+                <option value="cameroonian">Kameruner</option>
+                <option value="canadian">Kanadisch</option>
+                <option value="cape verdean">Kap Verdean</option>
+                <option value="central african">Zentralafrika </option>
+                <option value="chadian">Chadian</option>
+                <option value="chilean">Chilenisch</option>
+                <option value="chinese">Chinesisch</option>
+                <option value="colombian">Kolumbianisch</option>
+                <option value="comoran">Comoran</option>
+                <option value="congolese">Kongolesisch</option>
+                <option value="costa rican">Costa Ricanisch</option>
+                <option value="croatian">Kroatisch</option>
+                <option value="cuban">Kubanisch</option>
+                <option value="cypriot">Zypriotisch</option>
+                <option value="czech">Tschechisch</option>
+                <option value="danish">Dänisch</option>
+                <option value="djibouti">Djibouti</option>
+                <option value="dominican">Dominikaner</option>
+                <option value="dutch">Niederländisch</option>
+                <option value="east timorese"> Osttimorese</option>
+                <option value="ecuadorean">Ecuadorianisch</option>
+                <option value="egyptian">Ägyptisch</option>
+                <option value="emirian">Emirian</option>
+                <option value="equatorial guinean">Äquatorial Guinean</option>
+                <option value="eritrean">Eritrean</option>
+                <option value="estonian">Estnisch</option>
+                <option value="ethiopian">Äthiopisch</option>
+                <option value="fijian">Fijian</option>
+                <option value="filipino">Filipino</option>
+                <option value="finnish">Finnisch</option>
+                <option value="french">Französisch</option>
+                <option value="gabonese">Gabunisch</option>
+                <option value="gambian">Gambian</option>
+                <option value="georgian">Georgisch</option>
+                <option value="ghanaian">Ghanaisch</option>
+                <option value="greek">Griechisch</option>
+                <option value="grenadian">Grenadian</option>
+                <option value="guatemalan">Guatemaltekisch</option>
+                <option value="guinea-bissauan">Guinea-Bissauan</option>
+                <option value="guinean">Guinean</option>
+                <option value="guyanese">Guyanese</option>
+                <option value="haitian">Haitianisch</option>
+                <option value="herzegovinian">Herzegovinian</option>
+                <option value="honduran">Honduranisch</option>
+                <option value="hungarian">Ungarisch</option>
+                <option value="icelander">Icelander</option>
+                <option value="indian">Indianer</option>
+                <option value="indonesian">Indonesisch</option>
+                <option value="iranian">Iraner</option>
+                <option value="iraqi">Iraker</option>
+                <option value="irish">Irisch</option>
+                <option value="israeli">Israelisch</option>
+                <option value="italian">Italienisch</option>
+                <option value="ivorian">Ivorian</option>
+                <option value="jamaican">Jamaikanisch</option>
+                <option value="japanese">Japanisch</option>
+                <option value="jordanian">Jordanisch</option>
+                <option value="kazakhstani">Kasachstan</option>
+                <option value="kenyan">Kenianisch</option>
+                <option value="kittian and nevisian">Kittian und Nevisian</option>
+                <option value="kuwaiti">Kirgisisch</option>
+                <option value="kyrgyz">Kyrgyz</option>
+                <option value="laotian">Laotisch</option>
+                <option value="latvian">Lettisch</option>
+                <option value="lebanese">Libanesisch</option>
+                <option value="liberian">Liberianer</option>
+                <option value="libyan">Libyen</option>
+                <option value="liechtensteiner">Liechtensteiner</option>
+                <option value="lithuanian">Litauisch</option>
+                <option value="luxembourger">Luxembourger</option>
+                <option value="macedonian">Mazedonisch</option>
+                <option value="malagasy">Madagassisch</option>
+                <option value="malawian">Malawian</option>
+                <option value="malaysian">Malaysian</option>
+                <option value="maldivan">Maledivan</option>
+                <option value="malian">Malian</option>
+                <option value="maltese">Maltesisch</option>
+                <option value="marshallese">Marshallese</option>
+                <option value="mauritanian">Mauretanisch</option>
+                <option value="mauritian">Mauritianisch</option>
+                <option value="mexican">Mexikanisch</option>
+                <option value="micronesian">Mikronesisch</option>
+                <option value="moldovan">Moldovan</option>
+                <option value="monacan">Monacan</option>
+                <option value="mongolian">Mongolian</option>
+                <option value="moroccan">Marokkanisch</option>
+                <option value="mosotho">Mosotho</option>
+                <option value="motswana">Motswana</option>
+                <option value="mozambican">Mozambican</option>
+                <option value="namibian">Namibian</option>
+                <option value="nauruan">Nauruan</option>
+                <option value="nepalese">Nepalesisch</option>
+                <option value="new zealander">Neuseeländer</option>
+                <option value="ni-vanuatu">Ni-Vanuatu</option>
+                <option value="nicaraguan">Nicaraguanisch</option>
+                <option value="nigerien">Nigerien</option>
+                <option value="north korean">Nordkoreanisch</option>
+                <option value="northern irish">Nordirisch</option>
+                <option value="norwegian">Norwegisch</option>
+                <option value="omani">Omani</option>
+                <option value="pakistani">Pakistaner</option>
+                <option value="palauan">Palauan</option>
+                <option value="panamanian">Panamanian</option>
+                <option value="papua new guinean">Papua-Neuguinea</option>
+                <option value="paraguayan">Paraguayan</option>
+                <option value="peruvian">Peruanisch</option>
+                <option value="polish">Polnisch</option>
+                <option value="portuguese">Portugiesisch</option>
+                <option value="qatari">Katar</option>
+                <option value="romanian">Rumänisch</option>
+                <option value="russian">Russisch</option>
+                <option value="rwandan">Ruanda</option>
+                <option value="saint lucian">St. Lucian</option>
+                <option value="salvadoran">Salvadorianisch</option>
+                <option value="samoan">Samoanisch</option>
+                <option value="san marinese">San Marinese</option>
+                <option value="sao tomean">Sao Tomean</option>
+                <option value="saudi">Saudi</option>
+                <option value="scottish">Schottisch</option>
+                <option value="senegalese">Senegalese</option>
+                <option value="serbian">Serbisch</option>
+                <option value="seychellois">Seychellois</option>
+                <option value="sierra leonean">Sierra Leonean</option>
+                <option value="singaporean">Singapurisch</option>
+                <option value="slovakian">Slowakisch</option>
+                <option value="slovenian">Slowenisch</option>
+                <option value="solomon islander">Solomon Islander</option>
+                <option value="somali">Somali</option>
+                <option value="south african">Südafrikanisch</option>
+                <option value="south korean">Südkoreanisch</option>
+                <option value="spanish">Spanisch</option>
+                <option value="sri lankan">Sri Lankan</option>
+                <option value="sudanese">Sudanese</option>
+                <option value="surinamer">Surinamer</option>
+                <option value="swazi">Swazi</option>
+                <option value="swedish">Schwedisch</option>
+                <option value="taiwanese">Taiwanesisch</option>
+                <option value="tajik">Tadschikisch</option>
+                <option value="tanzanian">Tansanisch</option>
+                <option value="thai">Thai</option>
+                <option value="togolese">Togolese</option>
+                <option value="tongan">Tonganisch</option>
+                <option value="trinidadian or tobagonian">Trinidad oder Tobagonian</option>
+                <option value="tunisian">Tunesisch</option>
+                <option value="turkish">Türkisch</option>
+                <option value="tuvaluan">Tuvaluan</option>
+                <option value="ugandan">Ugandan</option>
+                <option value="ukrainian">Ukrainisch</option>
+                <option value="uruguayan">uruguayisch</option>
+                <option value="uzbekistani">Usbekisch</option>
+                <option value="venezuelan">Venezolanisch</option>
+                <option value="vietnamese">Vietnamesisch</option>
+                <option value="welsh">Walisisch</option>
+                <option value="yemenite">Jemenitisch</option>
+                <option value="zambian">Sambian</option>
+                <option value="zimbabwean">Simbabwisch</option>
+            </select>
+        </select>
+
+        <h4 id="Q4" style="font-weight: bold">Wie wahrscheinlich ist es, dass Du unsere Kochkurse
+            weiterempfiehlst? </h4>
         <div class="starmain" id="Q4A">
-            <div class="star-border"><div class="star"></div></div>
-            <div class="star-border"><div class="star"></div></div>
-            <div class="star-border"><div class="star"></div></div>
-            <div class="star-border"><div class="star"></div></div>
-            <div class="star-border"><div class="star"></div></div>
-            <div class="star-border"><div class="star"></div></div>
-            <div class="star-border"><div class="star"></div></div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
+            <div class="star-border">
+                <div class="star"></div>
+            </div>
         </div>
 
         <h4 id="Q5" style="font-weight: bold">Wie hast Du von Über den Tellerrand erfahren? </h4>
         <select name="City" id="soflow" onchange="changeFunc(value);">
-            <option id="Q5O1" value="1">Famile/Freunde</option>
-            <option id="Q5O2" value="2">Gutschein</option>
-            <option id="Q5O3" value="3">Arbeit</option>
-            <option id="Q5O4" value="4">Internet</option>
+            <option id="Q5O1" name="Friends/Family" value="1">Famile/Freunde</option>
+            <option id="Q5O2" name="Voucher" value="2">Gutschein</option>
+            <option id="Q5O3" name="Job" value="3">Arbeit</option>
+            <option id="Q5O4" name="Internet" value="4">Internet</option>
             <option id="Q5O5" value="5">Sonstiges</option>
             <fieldset>
-                <input style="display: none;" placeholder="Wie hast Du erfahren?" id="Q5Other" type="text" tabindex="1" autofocus="" >
+                <input style="display: none;" placeholder="Wie hast Du erfahren?" id="Q5Other" type="text" tabindex="1"
+                       autofocus="">
             </fieldset>
         </select>
         <h4 id="Q6" style="font-weight: bold">Hast Du bereits an anderen Begegnungsprojekten teilgenommen? </h4>
         <div id="">
-            <input id="checkbox-1" onchange="changeSet(this);" class="checkbox-custom" name="checkbox-1" type="checkbox">
-            <label id="Q6Q1" for="checkbox-1" class="checkbox-custom-label">Weitere Über den Tellerrand Veranstaltungen:</label>
+            <input id="checkbox-1" onchange="changeSet(this);" class="checkbox-custom" name="checkbox-1"
+                   type="checkbox">
+            <label id="Q6Q1" for="checkbox-1" class="checkbox-custom-label">Weitere Über den Tellerrand
+                Veranstaltungen:</label>
         </div>
         <div id="">
-            <input id="checkbox-2" onchange="changeFunc2('Q6Other'); changeSet(this)" class="checkbox-custom" name="checkbox-2" type="checkbox">
+            <input id="checkbox-2" onchange="changeFunc2('Q6Other'); changeSet(this)" class="checkbox-custom"
+                   name="checkbox-2" type="checkbox">
             <label id="Q6Q2" for="checkbox-2" class="checkbox-custom-label">Andere</label>
         </div>
         <fieldset>
-            <input style="display: none;" placeholder="Wie heisst es/sie?" id="Q6Other" type="text" tabindex="1" autofocus="" >
+            <input style="display: none;" placeholder="Wie heisst es/sie?" id="Q6Other" type="text" tabindex="1"
+                   autofocus="">
         </fieldset>
         <div id="">
             <input id="checkbox-3" onchange="changeSet(this)" class="checkbox-custom" name="checkbox-3" type="checkbox">
@@ -1414,7 +2047,8 @@
         </div>
 
 
-        <h4 id="Q8" style="font-weight: bold">Wie wichtig sind Dir die folgenden Komponenten des Kochkurses auf einer Skala von 1 (nicht wichtig)
+        <h4 id="Q8" style="font-weight: bold">Wie wichtig sind Dir die folgenden Komponenten des Kochkurses auf einer
+            Skala von 1 (nicht wichtig)
             bis 7 (sehr wichtig)</h4>
 
         <h4 style="text-align: center" id="Q8Q1"> Ein neues Gericht kochen lernen </h4>
@@ -1553,16 +2187,18 @@
         </div>
 
 
-
         <h4 id="Q13" style="font-weight: bold"> Was hast Du neben dem Kochen neues gelernt?</h4>
         <fieldset><input id="Q13A" placeholder="..." type="text" tabindex="2"></fieldset>
 
-        <h4 id="Q14" style="font-weight: bold"> Inwiefern glaubst Du, dass dieser Kochkurs zu einer offenen und toleranten Gesellschaft beitragen kann?
+        <h4 id="Q14" style="font-weight: bold"> Inwiefern glaubst Du, dass dieser Kochkurs zu einer offenen und
+            toleranten Gesellschaft beitragen kann?
         </h4>
 
         <div id="">
-            <input id="checkbox-4" onchange="changeSet(this);" class="checkbox-custom" name="checkbox-4" type="checkbox">
-            <label id="Q14Q1" for="checkbox-4" class="checkbox-custom-label">Begegnungsräume zu haben um Leute zu treffen</label>
+            <input id="checkbox-4" onchange="changeSet(this);" class="checkbox-custom" name="checkbox-4"
+                   type="checkbox">
+            <label id="Q14Q1" for="checkbox-4" class="checkbox-custom-label">Begegnungsräume zu haben um Leute zu
+                treffen</label>
         </div>
 
         <div id="">
@@ -1572,21 +2208,22 @@
 
         <div id="">
             <input id="checkbox-7" onchange="changeSet(this)" class="checkbox-custom" name="checkbox-7" type="checkbox">
-            <label id="Q14Q3" for="checkbox-7" class="checkbox-custom-label">Gemeinsam über kulturelle Unterschiede lernen</label>
+            <label id="Q14Q3" for="checkbox-7" class="checkbox-custom-label">Gemeinsam über kulturelle Unterschiede
+                lernen</label>
         </div>
 
 
         <div id="">
-            <input id="checkbox-5" onchange="changeFunc2('Q14Other'); changeSet(this)" class="checkbox-custom" name="checkbox-2" type="checkbox">
+            <input id="checkbox-5" onchange="changeFunc2('Q14Other'); changeSet(this)" class="checkbox-custom"
+                   name="checkbox-2" type="checkbox">
             <label id="Q14Q4" for="checkbox-5" class="checkbox-custom-label">Anderes</label>
         </div>
         <fieldset>
-            <input style="display: none;" placeholder="..." id="Q14Other" type="text" tabindex="1" autofocus="" >
+            <input style="display: none;" placeholder="..." id="Q14Other" type="text" tabindex="1" autofocus="">
         </fieldset>
 
         <h4 id="Q16" style="font-weight: bold">Wie können wir unsere Kochkurse weiter verbessern?</h4>
         <fieldset><textarea id="Q16A" placeholder="...." tabindex="5"></textarea></fieldset>
-
 
 
         <div class="center-component">
@@ -1616,7 +2253,7 @@
                           font-size="22"
                           fill-opacity="1"
                           text-anchor="middle"
-                          fill="rgb(255,255,255)" >
+                          fill="rgb(255,255,255)">
                         ✔
                     </text>
                     <text class="textNode" x="96" y="40"
@@ -1625,7 +2262,7 @@
                           font-size="16"
                           fill-opacity="1"
                           text-anchor="middle"
-                          fill="#ff7f2e" >
+                          fill="#ff7f2e">
                         Submit
                     </text>
                 </svg>
@@ -1754,9 +2391,9 @@
                     src="https://ueberdentellerrand.org/media/com_form2content/documents/c9/a9/f41/youtube.svg"
                     onerror="this.src='images/stories/com_form2content/p9/f9/youtube.png'"></a></div>
         </div>
-        <span class="copyright">Copyright © Über den Tellerrand e.V. 2013 – 2019        <br><a rel="nofollow"
-                                                                                               href="https://wanjapflueger.de"
-                                                                                               target="_blank">powered by wfp</a></span>
+        <span class="copyright">Copyright © Über den Tellerrand e.V. 2013 – 2019  <br><a rel="nofollow"
+                                                                                         href="https://wanjapflueger.de"
+                                                                                         target="_blank">powered by wfp</a></span>
     </div>
 </footer>
 <script src="https://ueberdentellerrand.org/templates/frontend/js/jquery.widowFix.js" type="text/javascript"></script>
