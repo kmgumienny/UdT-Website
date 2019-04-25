@@ -1489,12 +1489,14 @@
                 lang = 'EN'
             var age = $('#Q1A').val();
             var nationaltiy = $('#Q2').attr('name')
+            if (nationaltiy == null)
+                nationaltiy = '';
             var xprc = $('#Q4A').attr('style');
             if (xprc == null)
                 xprc = ''
-            var hear = $('#soflow').children("option:selected").attr('name')
+            var hear = $('#soflow').children("option:selected").attr('value')
             if (hear < 5)
-                hear = $('#soflow').children("option:selected").text()
+                hear = $('#soflow').children("option:selected").attr('name')
             else
                 hear = $('#Q5Other').val()
             var part1 = 'No previous UdT participation';
@@ -1652,7 +1654,7 @@
 
     /* -------------------- Select Box Styles: stackoverflow.com Method */
     /* -------------------- Source: http://stackoverflow.com/a/5809186 */
-    select#soflow, select#soflow-color {
+    select#soflow, select#soflow2, select#soflow-color {
         -webkit-appearance: button;
         -webkit-border-radius: 2px;
         -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
@@ -1789,7 +1791,7 @@
         <h4 id="Q2" style="font-weight: bold">Nationalität</h4>
         <!--<fieldset><input id="" placeholder="DE/SY/AF/EN/..." type="email" tabindex="2"></fieldset>-->
 
-        <select name="Nationality" id="soflow" onchange="changeNationality(value)">
+        <select name="Nationality" id="soflow2" onchange="changeNationality(value)">
                 <option value="">-- wählen Sie einen aus --</option>
                 <option value="german"> Deutsch</option>
                 <option value="swiss"> Schweizerisch</option>
@@ -2015,9 +2017,9 @@
 
         <h4 id="Q5" style="font-weight: bold">Wie hast Du von Über den Tellerrand erfahren? </h4>
         <select name="City" id="soflow" onchange="changeFunc(value);">
-            <option id="Q5O1" name="Friends/Family" value="1">Famile/Freunde</option>
-            <option id="Q5O2" name="Voucher" value="2">Gutschein</option>
-            <option id="Q5O3" name="Job" value="3">Arbeit</option>
+            <option id="Q5O1" name="Famile/Freunde" value="1">Famile/Freunde</option>
+            <option id="Q5O2" name="Gutschein" value="2">Gutschein</option>
+            <option id="Q5O3" name="Arbeit" value="3">Arbeit</option>
             <option id="Q5O4" name="Internet" value="4">Internet</option>
             <option id="Q5O5" value="5">Sonstiges</option>
             <fieldset>
